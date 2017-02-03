@@ -30,6 +30,8 @@ import {SchoolService} from "./services/school/school.service";
 import {ConfigService} from "./config/config.service";
 import { SchoolRegisterComponent } from './school/school-register.component';
 import {HelperService} from "./services/helper/helper.service";
+import { StudentSearchComponent } from './student/student-search.component';
+import { StudentRegisterComponent } from './student/student-register.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +39,9 @@ import {HelperService} from "./services/helper/helper.service";
     UserSearchComponent, FastSearchComponent, SearchButtonsComponent, DeleteDialogComponent, UserRegisterComponent, RegisterButtonsComponent, UserPasswordRecoverComponent,
     SchoolSearchComponent,
     LocalizationComponent,
-    SchoolRegisterComponent
+    SchoolRegisterComponent,
+    StudentSearchComponent,
+    StudentRegisterComponent
   ],
   imports: [
     BrowserModule,

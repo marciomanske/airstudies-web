@@ -14,6 +14,8 @@ import { UserRegisterComponent } from "./user/userregister.component";
 import { UserPasswordRecoverComponent } from './user/userpasswordrecover.component';
 import { SchoolSearchComponent } from './school/schoolsearch.component';
 import { SchoolRegisterComponent } from './school/school-register.component';
+import {StudentSearchComponent} from "./student/student-search.component";
+import {StudentRegisterComponent} from "./student/student-register.component";
 
 const routes: Routes = [
     {path:"", redirectTo: "/main", pathMatch: "full"},
@@ -25,7 +27,9 @@ const routes: Routes = [
             {path:"usersearch", component: UserSearchComponent},
             {path: "userregister/:id", component: UserRegisterComponent},
             {path: "schoolsearch", component: SchoolSearchComponent},
-            {path: "schoolregister/:id", component: SchoolRegisterComponent}
+            {path: "schoolregister/:id", component: SchoolRegisterComponent},
+            {path: "studentsearch", component: StudentSearchComponent},
+            {path: "studentregister/:id", component: StudentRegisterComponent}
         ]
 
     }

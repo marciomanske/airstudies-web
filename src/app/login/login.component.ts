@@ -32,7 +32,7 @@ export class LoginComponent  {
           res => { if (res.status === 1) {
 
               if (res.user.role !== "ADMIN") {
-                  this.loginFail(new LoginResult(2, null, "Access Forbiden", null));
+                  this.loginFail(new LoginResult(2, null, "Access Forbidden", null));
                   return;
               }
 

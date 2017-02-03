@@ -6,8 +6,7 @@
     <label for="inputNomEsc" class="dis">Name</label>
     <input type="text" class="form-control" id="inputNomEsc" placeholder="School name..."
            [(ngModel)]="school.name" name="name"
-           #name="ngModel"
-    />
+           #name="ngModel"/>
   </div>
 
 
@@ -23,7 +22,7 @@
 
   <div class="form-group col-md-4">
     <label for="inputLanguage"  class="dis">Language</label>
-    <select class="form-control"  id="inputLanguage" readonly="true"
+    <select class="form-control"  id="inputLanguage"
             [(ngModel)]="school.language" name="inputLanguage" title={{languages[0].label}}>
       <option *ngFor="let language of languages" [value]="language.value">{{language.label}}</option>
     </select>

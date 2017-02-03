@@ -1,0 +1,114 @@
+<h3 class="text-center">Student</h3>
+<hr>
+<section class="dados col-md-12">
+    <article class="row">
+        <form #studentForm="ngForm">
+            <h4 class="col-md-12">Identification</h4>
+            <div class="form-group col-md-6">
+                <label for="fullName">Full Name</label>
+                <input type="text" class="form-control" id="fullName" placeholder="Name" required
+                       name="fullName" [(ngModel)]="student.name" #fullName="ngModel"/>
+                <div [hidden]="fullName.valid || fullName.pristine"
+                     class="alert alert-danger">
+                    Student name is required
+                </div>
+            </div>
+            <div class="form-group col-md-3">
+                <label for="passport">Passport</label>
+                <input type="text" class="form-control" id="passport" placeholder="Passport" required
+                       #passport="ngModel" [(ngModel)]="student.passport" name="passport"/>
+                <div [hidden]="passport.valid || passport.pristine"
+                     class="alert alert-danger">
+                    Passport is required
+                </div>
+            </div>
+
+            <div class="form-group col-md-3">
+                <label for="birthdate">Birth Date</label>
+                <input type="date" class="form-control" id="birthdate"
+                       [(ngModel)]="student.birthDate" name="birthdate" #birthdate="ngModel"/>
+            </div>
+
+            <div class="form-group col-lg-6">
+                <label for="email">E-mail</label>
+                <input type="email" class="form-control" id="email" placeholder="E-mail" name="email" [(ngModel)]="student.email" required
+                       #email="ngModel"/>
+                <div [hidden]="email.valid || email.pristine"
+                     class="alert alert-danger">
+                    Email is required
+                </div>
+            </div>
+
+
+            <div class="form-group col-md-3">
+                <label for="phone">Phone</label>
+                <input type="tel" class="form-control" id="phone" placeholder="Phone number"
+                       [(ngModel)]="student.phone" name="phone"/>
+            </div>
+
+            <div class="form-group col-lg-3">
+                <label for="language">Mother tongue</label>
+                <input id="language" class="form-control" name="language"
+                       ng2-auto-complete display-property-name="name"
+                       no-match-found-text="No language found" max-num-list="5" [source]="config.worldLanguages"
+                       value-property-name="code"
+
+                />
+            </div>
+
+            <div class="form-group col-lg-12">
+                <label>
+                    <input type="checkbox" name="specialNeeds"
+                           [checked]="student.requireSpecialNeeds === 1"
+                           (change)="onChangeSpecialNeeds($event)"
+                    /> Special Needs
+                </label>
+                <input type="text" class="form-control" id="specialNeedsDescription" placeholder="If yes, please describe..."
+                       [disabled] = "student.requireSpecialNeeds == 0" [required]="student.requireSpecialNeeds == 1"
+                       [(ngModel)]="student.specialNeedsDescription" name="specialNeedsDescription" #specialNeedsDescription = "ngModel">
+                <div [hidden]="student.requireSpecialNeeds == 0?true:specialNeedsDescription.valid || specialNeedsDescription.pristine"
+                     class="alert alert-danger">
+                    Special needs description is required
+                </div>
+            </div>
+
+            <h4 class="col-md-12">Contact</h4>
+            <div class="form-group col-md-4">
+                <label for="contactName">Name</label>
+                <input type="text" class="form-control" id="contactName" placeholder="Main Contact"
+                       [(ngModel)]="student.contactName" name="contactName"/>
+            </div>
+            <div class="form-group col-md-4">
+                <label for="contactPhone">Phone</label>
+                <input type="tel" class="form-control" id="contactPhone" placeholder="Phone number"
+                       [(ngModel)]="student.contactPhone" name="contactPhone"/>
+            </div>
+            <div class="form-group col-md-4">
+                <label for="contactEmail">Email</label>
+                <input type="email" class="form-control" id="contactEmail" placeholder="Email"
+                       [(ngModel)]="student.contactEmail" name="contactEmail"/>
+            </div>
+
+
+            <app-localization [addressLine1] = "student.addressLine1" [addressLine2] = "student.addressLine2"
+                              [city] = "student.city" [state] = "student.state"
+                              [country] = "student.country" [postalCode]="student.postalCode"
+                              (localization) = "onChangeLocalization($event)"
+            ></app-localization>
+
+            <div class="form-group col-md-12">
+                <label for="observation">Observation</label>
+                <textarea class="form-control" rows="6" id="observation"
+                          [(ngModel)]="student.observation" name="observation"></textarea>
+            </div>
+
+
+            <div class="col-lg-12">
+                <hr>
+                <app-registerbuttons [validForm]="studentForm.form.valid"  (save)="onSave(true)" (saveAndNew)="onSaveAndNew()"></app-registerbuttons>
+            </div>
+        </form>
+
+
+    </article>
+</section>
