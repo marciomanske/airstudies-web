@@ -56,6 +56,7 @@ export class BaseHttpService {
   }
 
   update(entity: any) : Promise<any> {
+    //
     let putUrl = this.config.url[this.entityName].update;
     return this.executeOther(putUrl, "put", entity);
   }
