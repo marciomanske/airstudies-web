@@ -41,22 +41,22 @@ export class BaseHttpService {
   }
 
   search(criteria: any): Promise<any> {
-    let getUrl = this.config.url.baseAddress + this.config.url[this.entityName].find + "/" + JSON.stringify(criteria);
+    let getUrl = this.config.url[this.entityName].find + "/" + JSON.stringify(criteria);
     return this.executeGet(getUrl);
   }
 
   searchById(id: number):Promise<any> {
-    let getUrl = this.config.url.baseAddress + this.config.url[this.entityName].findById + "/" + id;
+    let getUrl = this.config.url[this.entityName].findById + "/" + id;
     return this.executeGet(getUrl);
   }
 
   new(entity: any) : Promise<any> {
-    let postUrl = this.config.url.baseAddress + this.config.url[this.entityName].new;
+    let postUrl = this.config.url[this.entityName].new;
     return this.executeOther(postUrl, "post", entity);
   }
 
   update(entity: any) : Promise<any> {
-    let putUrl = this.config.url.baseAddress + this.config.url[this.entityName].update;
+    let putUrl = this.config.url[this.entityName].update;
     return this.executeOther(putUrl, "put", entity);
   }
 }
