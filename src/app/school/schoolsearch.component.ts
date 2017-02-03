@@ -57,7 +57,7 @@ export class SchoolSearchComponent implements OnInit {
     if (languages != null) {
       let languageList = JSON.parse(languages);
       languageList.forEach((lang) => {
-            languageNames += this.helper.findLanguageByValue(lang) + " ";
+            languageNames += this.helper.findLanguageByValue(lang).label + " ";
           }
         );
     }
@@ -90,6 +90,16 @@ export class SchoolSearchComponent implements OnInit {
           attributeName: "active",
           like: false});
     }
+
+    if (this.school.language !== "ALL") {
+        params.push(
+            {value: this.school.language,
+                operation: 4,
+                attributeName: "languages",
+                like: true});
+    }
+
+
 
     if (this.school.city) {
       params.push(

@@ -30,7 +30,13 @@ export class LoginComponent  {
     this.loginService.login({username: username, password: password, companyCode: "ADMIN"}).then(
 
           res => { if (res.status === 1) {
-            this.loginSuccess(res);
+
+              if (res.user.role !== "ADMIN") {
+                  this.loginFail(new LoginResult(2, null, "Access Forbiden", null));
+                  return;
+              }
+
+              this.loginSuccess(res);
           } else {
               this.loginFail(res);
           }
