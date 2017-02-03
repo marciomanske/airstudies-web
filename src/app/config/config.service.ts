@@ -8,22 +8,25 @@ import { UserType } from '../dto/UserType';
 @Injectable()
 export class ConfigService {
 
+
+
   url = {
+    baseAddress: "http://localhost:3500",
     user: {
-      login: "http://localhost:3500/airstudies/services/user/authenticate",
-      validateToken: "http://localhost:3500/airstudies/services/user/validatetoken",
-      find: "http://localhost:3500/airstudies/services/user/list",
-      findById: "http://localhost:3500/airstudies/services/user",
-      new: "http://localhost:3500/airstudies/services/user/new",
-      update: "http://localhost:3500/airstudies/services/user/update",
-      updatePassword: "http://localhost:3500/airstudies/services/user/updatePassword",
-      recoverPassword: "http://localhost:3500/airstudies/services/user/recoverpassword",
+      login: "/airstudies/services/user/authenticate",
+      validateToken: "/airstudies/services/user/validatetoken",
+      find: "/airstudies/services/user/list",
+      findById: "/airstudies/services/user",
+      new: "/airstudies/services/user/new",
+      update: "/airstudies/services/user/update",
+      updatePassword: "/airstudies/services/user/updatePassword",
+      recoverPassword: "/airstudies/services/user/recoverpassword",
     },
     school: {
-      find: "http://localhost:3500/airstudies/services/school/list",
-      findById:"http://localhost:3500/airstudies/services/school",
-      new:"http://localhost:3500/airstudies/services/user/school",
-      update: "http://localhost:3500/airstudies/services/school/update"
+      find: "/airstudies/services/school/list",
+      findById:"/airstudies/services/school",
+      new:"/airstudies/services/user/school",
+      update: "/airstudies/services/school/update"
     },
     googleMapURL: "https://maps.googleapis.com/maps/api/geocode/json?address=:my_own_keyword&language=en"
   };

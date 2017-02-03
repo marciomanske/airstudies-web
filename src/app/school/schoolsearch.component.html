@@ -75,7 +75,7 @@
             <td>{{schoolResult.name}}</td>
             <td>{{schoolResult.city}}</td>
             <td>{{schoolResult.country}}</td>
-            <td></td>
+            <td>{{mountLanguageNames(schoolResult.languages)}}</td>
             <td>
               <span *ngIf="schoolResult.active === 1">Active</span>
               <span *ngIf="schoolResult.active === 0">Inactive</span>

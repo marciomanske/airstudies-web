@@ -1,9 +1,6 @@
-import { Injectable } from '@angular/core';
-
 import { Headers, Http }    from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 import {ConfigService} from "../../config/config.service";
-import {Observable} from "rxjs";
 
 export class BaseHttpService {
 
@@ -12,7 +9,7 @@ export class BaseHttpService {
   constructor(protected http: Http, protected entityName: string, protected config: ConfigService) { }
 
   executeGet(url: string): Promise<any> {
-    return this.http.get(url, {headers: this.headers})
+    return this.http.get(this.config.url.baseAddress + url, {headers: this.headers})
       .toPromise()
       .then(function(res) {
         return res.json();
@@ -23,7 +20,7 @@ export class BaseHttpService {
   }
   executeOther(url: string, method: string, body: any): Promise<any> {
     if (method === "post") {
-      return this.http.post(url,body, {headers: this.headers})
+      return this.http.post(this.config.url.baseAddress + url,body, {headers: this.headers})
         .toPromise()
         .then(function(res) {
           return res.json();
@@ -32,7 +29,7 @@ export class BaseHttpService {
           return {status: 2, error: error};
         });
     } else {
-      return this.http.put(url,body, {headers: this.headers})
+      return this.http.put(this.config.url.baseAddress + url,body, {headers: this.headers})
         .toPromise()
         .then(function(res) {
           return res.json();
@@ -44,22 +41,22 @@ export class BaseHttpService {
   }
 
   search(criteria: any): Promise<any> {
-    let getUrl = this.config.url[this.entityName].find + "/" + JSON.stringify(criteria);
+    let getUrl = this.config.url.baseAddress + this.config.url[this.entityName].find + "/" + JSON.stringify(criteria);
     return this.executeGet(getUrl);
   }
 
   searchById(id: number):Promise<any> {
-    let getUrl = this.config.url[this.entityName].findById + "/" + id;
+    let getUrl = this.config.url.baseAddress + this.config.url[this.entityName].findById + "/" + id;
     return this.executeGet(getUrl);
   }
 
   new(entity: any) : Promise<any> {
-    let postUrl = this.config.url[this.entityName].new;
+    let postUrl = this.config.url.baseAddress + this.config.url[this.entityName].new;
     return this.executeOther(postUrl, "post", entity);
   }
 
   update(entity: any) : Promise<any> {
-    let putUrl = this.config.url[this.entityName].update;
+    let putUrl = this.config.url.baseAddress + this.config.url[this.entityName].update;
     return this.executeOther(putUrl, "put", entity);
   }
 }

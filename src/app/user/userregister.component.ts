@@ -13,7 +13,7 @@ import {HelperService} from "../services/helper/helper.service";
 })
 export class UserRegisterComponent implements  OnInit{
 
-  user: User;
+  user = new User();
 
   constructor(private userService: UserService, private router: Router, private route: ActivatedRoute,
     private config: ConfigService, private helper: HelperService) {}

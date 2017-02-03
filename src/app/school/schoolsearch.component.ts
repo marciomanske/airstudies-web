@@ -7,6 +7,7 @@ import {Status} from "../dto/Status";
 import {SchoolService} from "../services/school/school.service";
 import {ConfigService} from "../config/config.service";
 import {School} from "../dto/School";
+import {HelperService} from "../services/helper/helper.service";
 
 @Component({
   selector: 'app-schoolsearch',
@@ -23,7 +24,8 @@ export class SchoolSearchComponent implements OnInit {
   googleMapURL: string;
   showNoResultsFound: boolean = false;
 
-  constructor(private schoolService: SchoolService, private config: ConfigService, private router: Router) { }
+  constructor(private schoolService: SchoolService, private config: ConfigService, private router: Router,
+              private helper: HelperService) { }
 
   ngOnInit() {
     this.languages = this.config.languages;
@@ -48,6 +50,19 @@ export class SchoolSearchComponent implements OnInit {
       }
 
     }
+  }
+
+  mountLanguageNames(languages: string): string {
+    let languageNames = "";
+    if (languages != null) {
+      let languageList = JSON.parse(languages);
+      languageList.forEach((lang) => {
+            languageNames += this.helper.findLanguageByValue(lang) + " ";
+          }
+        );
+    }
+
+    return languageNames;
   }
 
   onNewRegister() {

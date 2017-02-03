@@ -18,7 +18,7 @@ export class SchoolRegisterComponent implements OnInit {
   constructor(private schoolService: SchoolService, private router: Router, private route: ActivatedRoute,
               private config: ConfigService, private helper: HelperService) { }
 
-  private school: School;
+  private school: School = new School();
 
   private selectedLanguages = [];
 

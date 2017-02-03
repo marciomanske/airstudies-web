@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Headers, Http }    from '@angular/http';
+import { Http }    from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 import { tokenNotExpired } from 'angular2-jwt';
 
@@ -17,7 +17,7 @@ export class LoginService extends BaseHttpService {
   }
 
   login(data): Promise<LoginResult> {
-    return this.http.post(this.config.url.user.login, data, {headers: this.headers})
+    return this.http.post(this.config.url.baseAddress + this.config.url.user.login, data, {headers: this.headers})
         .toPromise()
         .then(function(res) {
 
