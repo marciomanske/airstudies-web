@@ -1,0 +1,109 @@
+import { Injectable } from '@angular/core';
+
+import { Headers, Http }    from '@angular/http';
+import 'rxjs/add/operator/toPromise';
+
+import { Config } from "../../config/config";
+import { User } from "../../dto/User";
+
+@Injectable()
+export class UserService  {
+
+  private headers = new Headers({'Content-Type': 'application/json'});
+  private config: Config = new Config();
+
+  constructor(private http: Http) { }
+
+  searchByToken(token: string): Promise<any> {
+    let postUrl = this.config.url.validateToken;
+
+    return this.http.post(postUrl,{token: token, isPasswordRecovery: true}, {headers: this.headers})
+      .toPromise()
+      .then(function(res) {
+
+        return res.json();
+      })
+      .catch(function(error) {
+
+        return {error: error};
+      });
+
+  }
+
+  search(criteria: any): Promise<any> {
+
+    let getUrl = this.config.url.findUser + "/" + JSON.stringify(criteria);
+
+    return this.http.get(getUrl, {headers: this.headers})
+        .toPromise()
+        .then(function(res) {
+
+          return res.json();
+        })
+        .catch(function(error) {
+
+          return {error: error};
+        });
+  }
+
+  searchById(id: number):Promise<any> {
+
+    let getUrl = this.config.url.findUserById + "/" + id;
+
+    return this.http.get(getUrl, {headers: this.headers})
+      .toPromise()
+      .then(function(res) {
+
+        return res.json();
+      })
+      .catch(function(error) {
+
+        return {error: error};
+      });
+  }
+
+  new(user: User) : Promise<any> {
+    let postUrl = this.config.url.newUser;
+
+    return this.http.post(postUrl,user, {headers: this.headers})
+      .toPromise()
+      .then(function(res) {
+
+        return res.json();
+      })
+      .catch(function(error) {
+
+        return {error: error};
+      });
+  }
+
+  update(user: User) : Promise<any> {
+    let putUrl = this.config.url.updateUser;
+
+    return this.http.put(putUrl,user, {headers: this.headers})
+      .toPromise()
+      .then(function(res) {
+
+        return res.json();
+      })
+      .catch(function(error) {
+
+        return {error: error};
+      });
+  }
+
+  updatePassword(userId: number, password: string): Promise<any> {
+    let putUrl = this.config.url.updatePassword;
+    let userData = {id: userId, password: password};
+    return this.http.put(putUrl, userData, {headers: this.headers})
+      .toPromise()
+      .then(function (res) {
+
+        return res.json();
+      })
+      .catch(function (error) {
+
+        return {error: error};
+      });
+  }
+}

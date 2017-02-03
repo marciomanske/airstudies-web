@@ -1,0 +1,1 @@
+{"version":3,"file":"registerbuttons.component.js","sourceRoot":"","sources":["registerbuttons.component.ts"],"names":[],"mappings":";;;;;;;;;OAAO,EAAE,SAAS,EAAU,MAAM,eAAe;AAOjD;IAEE;IAAgB,CAAC;IAEjB,2CAAQ,GAAR;IACA,CAAC;IAVH;QAAC,SAAS,CAAC;YACT,QAAQ,EAAE,qBAAqB;YAC/B,WAAW,EAAE,kCAAkC;YAC/C,SAAS,EAAE,CAAC,iCAAiC,CAAC;SAC/C,CAAC;;gCAAA;IAQF,+BAAC;AAAD,CAAC,AAPD,IAOC"}

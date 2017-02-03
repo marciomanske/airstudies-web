@@ -1,0 +1,1 @@
+{"version":3,"file":"userregister.component.js","sourceRoot":"","sources":["userregister.component.ts"],"names":[],"mappings":";;;;;;;;;OAAO,EAAE,SAAS,EAAU,MAAM,eAAe;AAOjD;IAEE;IAAgB,CAAC;IAEjB,wCAAQ,GAAR;IACA,CAAC;IAVH;QAAC,SAAS,CAAC;YACT,QAAQ,EAAE,kBAAkB;YAC5B,WAAW,EAAE,+BAA+B;YAC5C,SAAS,EAAE,CAAC,8BAA8B,CAAC;SAC5C,CAAC;;6BAAA;IAQF,4BAAC;AAAD,CAAC,AAPD,IAOC"}

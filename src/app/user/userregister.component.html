@@ -1,0 +1,127 @@
+<h3 class="text-center">User</h3>
+<hr>
+<section class="dados col-lg-12">
+  <article class="row">
+    <form #userForm="ngForm">
+      <h4 class="col-lg-12">Identification</h4>
+
+      <div class="form-group col-lg-6">
+        <label for="inputFullName">Full Name</label>
+        <input type="text" class="form-control" id="inputFullName" placeholder="Full Name" name="name" [(ngModel)]="user.name" required
+          #name="ngModel"/>
+        <div [hidden]="name.valid || name.pristine"
+             class="alert alert-danger">
+          Full Name is required
+        </div>
+      </div>
+
+      <div class="form-group col-lg-6">
+        <label for="inputDoc">Document</label>
+        <input type="text" class="form-control" id="inputDoc" placeholder="Document" name="passport" [(ngModel)]="user.passport" required
+          #document="ngModel"/>
+        <div [hidden]="document.valid || document.pristine"
+             class="alert alert-danger">
+          Document is required
+        </div>
+      </div>
+
+      <div class="form-group col-lg-6">
+        <label for="inputEmailUsr">E-mail</label>
+        <input type="email" class="form-control" id="inputEmailUsr" placeholder="E-mail" name="email" [(ngModel)]="user.email" required
+          #email="ngModel"/>
+        <div [hidden]="email.valid || email.pristine"
+             class="alert alert-danger">
+          Email is required
+        </div>
+      </div>
+
+      <div class="form-group col-lg-3">
+        <label for="inputUsername">Username</label>
+        <input type="text" class="form-control" id="inputUsername" placeholder="Username" name="username" [(ngModel)]="user.username" required
+          #username="ngModel"/>
+        <div [hidden]="username.valid || username.pristine"
+             class="alert alert-danger">
+          Username is required
+        </div>
+      </div>
+
+      <div class="form-group col-lg-3">
+        <label for="inputType">Type</label>
+        <select class="form-control"  id="inputType"
+                [(ngModel)]="user.role" name="inputType" required #type="ngModel">
+          <option *ngFor="let type of userTypes" [value]="type.value">{{type.label}}</option>
+        </select>
+        <div [hidden]="type.valid || type.pristine"
+             class="alert alert-danger">
+          User Type is required
+        </div>
+      </div>
+
+
+      <div class="form-group col-lg-3 checkbox">
+        <label>
+          <input type="checkbox" name="active"
+                 [checked]="user.active === 1"
+                 (change)="$event.target.checked?user.active = 1:user.active = 0"
+                 /> Active
+        </label>
+      </div>
+
+      <div class="form-group col-lg-3"></div>
+
+      <div class="form-group col-lg-3 checkbox">
+        <label>
+          <input type="checkbox" name="changePasswordNextLogin"
+                 [checked]="user.changePasswordNextLogin === 1"
+                 (change)="$event.target.checked?user.changePasswordNextLogin = 1:user.changePasswordNextLogin = 0"
+                 /> Must Change password next login
+        </label>
+      </div>
+
+      <app-localization [addressLine1] = "user.addressLine1" [addressLine2] = "user.addressLine2"
+                        [city] = "user.city" [state] = "user.state"
+                        [country] = "user.country" [postalCode]="user.postalCode"
+                        (localization) = "onChangeLocalization($event)"
+      ></app-localization>
+
+      <h4 class="col-lg-12">Contact</h4>
+      <div class="form-group col-lg-4">
+        <label for="inputTelUsr">Home</label>
+        <input type="text" class="form-control" id="inputTelUsr" placeholder="Home Number" name="homePhone"
+               [(ngModel)]="user.home"/>
+      </div>
+      <div class="form-group col-md-4">
+        <label for="inputTelCel">Mobile</label>
+        <input type="text" class="form-control" id="inputTelCel" placeholder="Mobile Number" name="cellPhone"
+               [(ngModel)]="user.mobile"/>
+      </div>
+      <div class="form-group col-lg-4">
+        <label for="inputTelCom">Work</label>
+        <input type="text" class="form-control" id="inputTelCom" placeholder="Work Number" name="workPhone"
+               [(ngModel)]="user.work"/>
+      </div>
+
+
+      <h4 class="form-group col-lg-12">Username/Password Recovery method</h4>
+      <div class="col-lg-12">
+
+        <div class="col-lg-4 radio" *ngFor="let recoveyMethod of recoveryMethods">
+          <label>
+            <input type="radio" name="optRecoverPass" class="radio-inline" value="recoveyMethod.value"
+                   [checked]="user.passwordRecoveryType === recoveyMethod.value"
+                   (click)="user.passwordRecoveryType=recoveyMethod.value"/>
+           {{recoveyMethod.label}}
+          </label>
+
+        </div>
+      </div>
+
+      <div class="col-lg-12">
+        <hr>
+        <app-registerbuttons [validForm]="userForm.form.valid" (save)="onSave(true); userForm.reset()" (saveAndNew)="onSaveAndNew();userForm.reset()"></app-registerbuttons>
+      </div>
+    </form>
+
+  </article>
+
+</section>

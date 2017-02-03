@@ -1,0 +1,121 @@
+<h3 class="text-center">School</h3>
+<hr>
+<section class="dados col-md-12">
+  <article class="row">
+    <form #schoolForm="ngForm">
+      <h4 class="col-md-12">Identification</h4>
+      <div class="form-group col-md-6">
+        <label for="inputNomeEscola">Name</label>
+        <input type="text" class="form-control" id="inputNomeEscola" placeholder="Name" required
+        name="name" [(ngModel)]="school.name" #name="ngModel"/>
+        <div [hidden]="name.valid || name.pristine"
+             class="alert alert-danger">
+          Name of the School is required
+        </div>
+      </div>
+      <div class="form-group col-md-3">
+        <label for="inputRegistro">Legal Document</label>
+        <input type="text" class="form-control" id="inputRegistro" placeholder="Document Number" required
+               #document="ngModel" [(ngModel)]="school.document" name="document"/>
+        <div [hidden]="document.valid || document.pristine"
+             class="alert alert-danger">
+          Legal Document is required
+        </div>
+      </div>
+      <div class="form-group col-md-3">
+        <label for="inputDataRegistro">Register Date</label>
+        <input type="date" class="form-control" id="inputDataRegistro" placeholder="Register Date" required
+               [(ngModel)]="school.registrationDate" name="registrationDate" #registrationDate="ngModel"/>
+        <div [hidden]="registrationDate.valid || registrationDate.pristine"
+             class="alert alert-danger">
+          Registration Date is required
+        </div>
+      </div>
+
+      <app-localization [addressLine1] = "school.addressLine1" [addressLine2] = "school.addressLine2"
+                        [city] = "school.city" [state] = "school.state"
+                        [country] = "school.country" [postalCode]="school.postalCode"
+                        (localization) = "onChangeLocalization($event)"
+      ></app-localization>
+
+
+      <h4 class="col-md-12">Languages (click to select/unselect)</h4>
+
+      <div class="form-group col-lg-6">
+        <a *ngFor="let language of languages"
+           [ngClass]="{'list-group-item': true, 'active': getSelected(language.value) }"
+           (click)="onLanguageClick(language.value)">
+          <p class="list-group-item-text">{{language.label}}</p>
+        </a>
+      </div>
+
+      <h4 class="col-md-12">Contact</h4>
+      <div class="form-group col-md-4">
+        <label for="inputNomeContact">Name</label>
+        <input type="text" class="form-control" id="inputNomeContact" placeholder="Main Contact"
+               [(ngModel)]="school.contactName" name="contactName"/>
+      </div>
+      <div class="form-group col-md-4">
+        <label for="inputTelContact">Phone</label>
+        <input type="tel" class="form-control" id="inputTelContact" placeholder="Comercial number"
+               [(ngModel)]="school.contactPhone" name="contactPhone"/>
+      </div>
+      <div class="form-group col-md-4">
+        <label for="inputEmailConact">Email</label>
+        <input type="email" class="form-control" id="inputEmailConact" placeholder="Email"
+               [(ngModel)]="school.contactEmail" name="contactEmail"/>
+      </div>
+
+      <h4 class="form-group col-md-12">Discounts</h4>
+      <div class="col-md-6">
+        <label for="periodoDesconto">Months to apply the discount</label>
+        <input type="number" class="form-control" id="periodoDesconto" placeholder="Discount months"
+               [(ngModel)]="school.discountMonths" name="discountMonths"/>
+      </div>
+      <div class="form-group col-md-5">
+        <label for="percentDesconto">Discount amount (%)</label>
+        <input type="number" class="form-control" id="percentDesconto" placeholder="Dicount amount"
+               [(ngModel)]="school.discountAmount" name="discountAmount"/>
+      </div>
+      <div class="form-group col-md-1">
+        <label></label>
+        <label>
+          <input type="checkbox" name="active"
+                 [checked]="school.active === 1"
+                 (change)="$event.target.checked?school.active = 1:school.active = 0"
+          /> Active
+        </label>
+      </div>
+      <h4 class="col-md-12">Pricing Plans</h4>
+
+      <div class="form-group col-md-6">
+        <label for="inputStudentPlans">Students Pricing Plans</label>
+        <select class="form-control"  id="inputStudentPlans"
+                [(ngModel)]="school.studentsPricingRules" name="studentsPricingRules">
+          <!--<option *ngFor="let type of userTypes" [value]="type.value">{{type.label}}</option>
+           -->
+          <option [value]="1">Student Plan 1</option>
+        </select>
+      </div>
+
+      <div class="form-group col-md-6">
+        <label for="inputSchoolPlan">School Pricing Plans</label>
+        <select class="form-control"  id="inputSchoolPlan"
+                [(ngModel)]="school.schoolPricingRules" name="schoolPricingRules">
+          <!--<option *ngFor="let type of userTypes" [value]="type.value">{{type.label}}</option>
+           -->
+          <option [value]="1">School Plan 1</option>
+        </select>
+      </div>
+
+
+
+      <div class="col-lg-12">
+        <hr>
+        <app-registerbuttons [validForm]="schoolForm.form.valid"  (save)="onSave(true)" (saveAndNew)="onSaveAndNew()"></app-registerbuttons>
+      </div>
+    </form>
+
+
+  </article>
+</section>
