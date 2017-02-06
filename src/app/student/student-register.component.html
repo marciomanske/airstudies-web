@@ -51,7 +51,7 @@
                 <input id="language" class="form-control" name="language"
                        ng2-auto-complete display-property-name="name"
                        no-match-found-text="No language found" max-num-list="5" [source]="config.worldLanguages"
-                       value-property-name="code"
+                       [(ngModel)]="student.motherTongue" (valueChanged)="onLanguageChange($event)"
 
                 />
             </div>

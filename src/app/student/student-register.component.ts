@@ -14,9 +14,9 @@ export class StudentRegisterComponent implements OnInit {
 
   constructor(private helper: HelperService, private config: ConfigService) { }
 
-  ngOnInit() {
+    ngOnInit() {
       this.student = new Student();
-  }
+    }
 
     onChangeLocalization(localization: Localization) {
         this.helper.copyLocalization(this.student, localization);
@@ -29,4 +29,39 @@ export class StudentRegisterComponent implements OnInit {
         }
     }
 
+    onLanguageChange(data:any) {
+        this.student.motherTongue = null;
+        if (data) {
+            this.student.motherTongue = data.name;
+        }
+    }
+
+
+    onSave(moveBack: boolean) {
+
+        let fcn = "new";
+        if (this.student.id !== null) {
+            fcn = "update";
+        }
+
+        alert(JSON.stringify(this.student));
+        /*
+        this.schoolService[fcn](this.school).then(
+            res => {
+                if (res.status === 1) {
+                    this.clearFields();
+                    if (moveBack) {
+                        this.router.navigate(['/admin/schoolsearch']);
+                    }
+
+                } else {
+                    alert(res.message);
+                }
+            }
+        ); */
+    }
+
+    onSaveAndNew() {
+        this.onSave(false);
+    }
 }

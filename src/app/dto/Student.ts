@@ -5,6 +5,7 @@
 export class Student {
 
     constructor (
+        public id: number = null,
         public name: string = null,
         public passport: string = null,
         public email: string = null,
