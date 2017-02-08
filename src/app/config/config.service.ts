@@ -11,7 +11,7 @@ export class ConfigService {
 
 
   url = {
-    baseAddress: "http://localhost:3500",
+    baseAddress: "http://192.168.0.101:3500",
     user: {
       login: "/airstudies/services/user/authenticate",
       validateToken: "/airstudies/services/user/validatetoken",
@@ -27,6 +27,12 @@ export class ConfigService {
       findById:"/airstudies/services/school",
       new:"/airstudies/services/user/school",
       update: "/airstudies/services/school/update"
+    },
+    student: {
+      find: "/airstudies/services/student/list",
+      findById:"/airstudies/services/student",
+      new:"/airstudies/services/user/student",
+      update: "/airstudies/services/student/update"
     },
     googleMapURL: "https://maps.googleapis.com/maps/api/geocode/json?address=:my_own_keyword&language=en"
   };
