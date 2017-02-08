@@ -1,0 +1,85 @@
+<h3 class="text-center">Properties</h3>
+<hr>
+<form>
+
+  <div class="form-group col-md-4">
+    <label for="inputPlace" class="dis">Place</label>
+    <input id="inputPlace" class="form-control" name="place"
+           path-to-data="results" ng2-auto-complete display-property-name="formatted_address"
+           min-chars="3" no-match-found-text="No city found" max-num-list="5" [source]="googleMapURL"
+           (valueChanged)="onPlaceChanged($event)"
+
+    />
+  </div>
+
+
+  <div class="form-group col-md-4">
+    <label for="inputNomProp" class="dis">Name</label>
+    <input type="text" class="form-control" id="inputNomProp" placeholder="Owner name..."
+           [(ngModel)]="propertySearch.name" name="name"
+           #name="ngModel"/>
+  </div>
+
+  <div class="form-group col-md-4">
+    <label for="inputStatus"  class="dis">Status</label>
+    <select class="form-control"  id="inputStatus"
+            [(ngModel)]="propertySearch.status" name="inputStatus" title={{propertyStatus[0].label}}>
+      <option *ngFor="let status of propertyStatus" [value]="status.value">{{status.label}}</option>
+    </select>
+
+  </div>
+
+                    
+  <app-searchbuttons (search)="onSearch()" (newRegister)="onNewRegister()"></app-searchbuttons>
+
+</form>
+
+<div class="container">
+  <div class="alert alert-warning" role="alert" *ngIf="showNoResultsFound">
+    No result found for the specified criteria
+  </div>
+  <hr>
+  <div class="row">
+
+
+    <div class="col-md-12">
+      <h4>Results</h4>
+      <div class="table-responsive">
+
+
+        <table id="mytable" class="table table-bordred table-striped">
+
+          <thead>
+          <tr>
+            <th>Name</th>
+            <th>City</th>
+            <th>Country</th>
+            <th>Status</th>
+            <th class="text-center">Edit</th>
+            <th class="text-center">Delete</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let propertyResult of searchResult">
+            <td>{{propertyResult.name}}</td>
+            <td>{{propertyResult.city}}</td>
+            <td>{{propertyResult.country}}</td>
+            <td>
+              <span *ngIf="propertyResult.active === 1">Active</span>
+              <span *ngIf="propertyResult.active === 0">Inactive</span>
+            </td>
+            <td class="text-center"><p data-placement="top" data-toggle="tooltip" title="Edit"><button (click)="onEdit(propertyResult.id)" class="btn btn-primary btn-xs" data-title="Edit" ><span class="glyphicon glyphicon-pencil"></span></button></p></td>
+            <td class="text-center"><p data-placement="top" data-toggle="tooltip" title="Delete"><button (click)="onDelete(propertyResult)" class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon glyphicon-trash"></span></button></p></td>
+          </tr>
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<app-deletedialog (confirmDelete)="onConfirmDelete()"></app-deletedialog>

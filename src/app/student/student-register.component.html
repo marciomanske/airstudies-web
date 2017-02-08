@@ -14,12 +14,12 @@
                 </div>
             </div>
             <div class="form-group col-md-3">
-                <label for="passport">Passport</label>
-                <input type="text" class="form-control" id="passport" placeholder="Passport" required
-                       #passport="ngModel" [(ngModel)]="student.passport" name="passport"/>
-                <div [hidden]="passport.valid || passport.pristine"
+                <label for="<docu></docu>ment">Document</label>
+                <input type="text" class="form-control" id="document" placeholder="Document" required
+                       #document="ngModel" [(ngModel)]="student.document" name="document"/>
+                <div [hidden]="document.valid || document.pristine"
                      class="alert alert-danger">
-                    Passport is required
+                    Document is required
                 </div>
             </div>
 
@@ -51,8 +51,8 @@
                 <input id="language" class="form-control" name="language"
                        ng2-auto-complete display-property-name="name"
                        no-match-found-text="No language found" max-num-list="5" [source]="config.worldLanguages"
-                       value-property-name="code"
-
+                       (valueChanged)="onLanguageChange($event)" 
+                       [(ngModel)]="student.motherTongue" 
                 />
             </div>
 

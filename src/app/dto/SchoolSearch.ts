@@ -4,6 +4,11 @@
 
 export class SchoolSearch {
 
-  constructor(public name: string, public city: string, public state: string, public country: string, public language: string, public status: string) {}
+  constructor(public name: string, 
+              public city: string, 
+              public state: string, 
+              public country: string, 
+              public language: string, 
+              public status: string) {}
 
 }

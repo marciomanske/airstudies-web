@@ -3,6 +3,8 @@ import {Student} from "../dto/Student";
 import {HelperService} from "../services/helper/helper.service";
 import {Localization} from "../dto/Localization";
 import {ConfigService} from "../config/config.service";
+import {StudentService} from "../services/student/student.service";
+import {Router, ActivatedRoute} from "@angular/router";
 
 @Component({
     templateUrl: './student-register.component.html',
@@ -12,10 +14,25 @@ export class StudentRegisterComponent implements OnInit {
 
   private student: Student = new Student();
 
-  constructor(private helper: HelperService, private config: ConfigService) { }
+  constructor(private helper: HelperService, private config: ConfigService,
+  private studentService: StudentService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
-      this.student = new Student();
+      let studentId = this.route.snapshot.params['id'];
+      
+      if (studentId > 0) {
+         this.studentService.searchById(studentId).then(
+         res => {
+            if (res.status === 1) {
+                this.student = res.result;
+            } else {
+                alert(res.result.message);
+            }
+         });
+       } else {
+            this.student = new Student();
+       }
+
   }
 
     onChangeLocalization(localization: Localization) {
@@ -29,4 +46,41 @@ export class StudentRegisterComponent implements OnInit {
         }
     }
 
+    onLanguageChange (data:any){
+        this.student.motherTongue = null;
+        if (data) {
+            this.student.motherTongue = data.name;
+        }
+    }
+
+    onSave(moveBack: boolean) {
+        let fcn = "new";
+        if (this.student.id !== null) {
+        fcn = "update";
+        }    
+
+    this.studentService[fcn](this.student).then(
+      res => {
+        if (res.status === 1) {
+          this.clearFields();
+          if (moveBack) {
+            this.router.navigate(['/admin/studentsearch']);
+          }
+
+        } else {
+            alert(res.message);
+        }
+      });
+    }
+
+    clearFields() {
+        this.student = new Student();
+    }
+
+    onSaveAndNew() {
+    this.onSave(false);
+  }
+
 }
+
+
