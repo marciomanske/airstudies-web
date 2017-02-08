@@ -16,6 +16,8 @@ import { SchoolSearchComponent } from './school/schoolsearch.component';
 import { SchoolRegisterComponent } from './school/school-register.component';
 import {StudentSearchComponent} from "./student/student-search.component";
 import {StudentRegisterComponent} from "./student/student-register.component";
+import {PropertySearchComponent} from "./property/property-search.component";
+import {PropertyRegisterComponent} from "./property/property-register.component";
 
 const routes: Routes = [
     {path:"", redirectTo: "/main", pathMatch: "full"},
@@ -29,7 +31,9 @@ const routes: Routes = [
             {path: "schoolsearch", component: SchoolSearchComponent},
             {path: "schoolregister/:id", component: SchoolRegisterComponent},
             {path: "studentsearch", component: StudentSearchComponent},
-            {path: "studentregister/:id", component: StudentRegisterComponent}
+            {path: "studentregister/:id", component: StudentRegisterComponent},
+            {path: "propertysearch", component: PropertySearchComponent},
+            {path: "propertyregister/:id", component: PropertyRegisterComponent}
         ]
 
     }
