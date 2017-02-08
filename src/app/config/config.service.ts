@@ -34,6 +34,14 @@ export class ConfigService {
       new:"/airstudies/services/user/student",
       update: "/airstudies/services/student/update"
     },
+
+    property: {
+      find: "/airstudies/services/property/list",
+      findById:"/airstudies/services/property",
+      new:"/airstudies/services/user/property",
+      update: "/airstudies/services/property/update"
+    },
+
     googleMapURL: "https://maps.googleapis.com/maps/api/geocode/json?address=:my_own_keyword&language=en"
   };
 
