@@ -1,5 +1,9 @@
 <h3 class="text-center">User</h3>
 <hr>
+<div class="alert alert-danger" role="alert" *ngIf="searchErrorMessage !== null">
+  {{searchErrorMessage}}
+</div>
+
 <section class="dados col-lg-12">
   <article class="row">
     <form #userForm="ngForm">
