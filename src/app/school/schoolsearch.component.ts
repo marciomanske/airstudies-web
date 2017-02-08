@@ -8,24 +8,25 @@ import {SchoolService} from "../services/school/school.service";
 import {ConfigService} from "../config/config.service";
 import {School} from "../dto/School";
 import {HelperService} from "../services/helper/helper.service";
+import {BaseSerchComponent} from "../basecomponent/base-search-component";
 
 @Component({
   selector: 'app-schoolsearch',
   templateUrl: './schoolsearch.component.html',
   styleUrls: ['../customcss/formstyle.css']
 })
-export class SchoolSearchComponent implements OnInit {
+export class SchoolSearchComponent extends BaseSerchComponent implements OnInit  {
 
-  school: SchoolSearch = new SchoolSearch(null, null, null,null, "ALL", "ALL");
+  school: SchoolSearch = new SchoolSearch();
   languages: Language[];
   schoolStatus: Status[] = this.config.statusList;
-  searchResult = [];
   schoolToDelete: School = null;
   googleMapURL: string;
-  showNoResultsFound: boolean = false;
 
   constructor(private schoolService: SchoolService, private config: ConfigService, private router: Router,
-              private helper: HelperService) { }
+              private helper: HelperService) {
+      super();
+  }
 
   ngOnInit() {
     this.languages = this.config.languages;
@@ -71,7 +72,7 @@ export class SchoolSearchComponent implements OnInit {
 
   onSearch() {
     let params = [];
-
+    this.searchErrorMessage = null;
     if (this.school.name) {
       params.push(
         {value: this.school.name,
@@ -131,6 +132,8 @@ export class SchoolSearchComponent implements OnInit {
         if (res.status === 1) {
           this.searchResult = res.result;
           this.showNoResultsFound = this.searchResult.length === 0;
+        } else {
+            this.searchErrorMessage = "Error executing search";
         }
       }
     );
@@ -151,7 +154,7 @@ export class SchoolSearchComponent implements OnInit {
       let localSchool = this.schoolToDelete;
       this.schoolToDelete = null;
       if (localSchool.active === 0) {
-        alert("School is already inactive");
+          this.searchErrorMessage = "School is already inactive";
       } else {
         localSchool.active = 0;
         this.schoolService.update(localSchool).then(
@@ -159,7 +162,7 @@ export class SchoolSearchComponent implements OnInit {
             if (res.status === 1) {
               this.onSearch();
             } else {
-              alert(res.message);
+                this.searchErrorMessage = res.message;
             }
           }
         )
