@@ -32,6 +32,10 @@ import { SchoolRegisterComponent } from './school/school-register.component';
 import {HelperService} from "./services/helper/helper.service";
 import { StudentSearchComponent } from './student/student-search.component';
 import { StudentRegisterComponent } from './student/student-register.component';
+import { PropertySearchComponent } from './property/property-search.component';
+import {PropertyRegisterComponent} from './property/property-register.component';
+import {StudentService} from './services/student/student.service';
+import {PropertyService} from './services/property/property.service';
 
 @NgModule({
   declarations: [
@@ -41,7 +45,9 @@ import { StudentRegisterComponent } from './student/student-register.component';
     LocalizationComponent,
     SchoolRegisterComponent,
     StudentSearchComponent,
-    StudentRegisterComponent
+    StudentRegisterComponent,
+    PropertySearchComponent,
+    PropertyRegisterComponent
   ],
   imports: [
     BrowserModule,
@@ -49,7 +55,8 @@ import { StudentRegisterComponent } from './student/student-register.component';
     HttpModule, AppRoutingModule, Ng2AutoCompleteModule
 
   ],
-  providers: [LoginService, AuthGuardService, UserService, GoogleService, SchoolService, ConfigService, HelperService],
+  providers: [LoginService, AuthGuardService, UserService, GoogleService,
+   SchoolService, ConfigService, HelperService, StudentService, PropertyService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
