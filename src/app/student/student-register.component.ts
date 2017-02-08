@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Student} from "../dto/Student";
 import {HelperService} from "../services/helper/helper.service";
 import {Localization} from "../dto/Localization";
@@ -12,41 +12,44 @@ import {Router, ActivatedRoute} from "@angular/router";
 })
 export class StudentRegisterComponent implements OnInit {
 
-  private student: Student = new Student();
+    searchErrorMessage: string = null;
 
-  constructor(private helper: HelperService, private config: ConfigService,
-  private studentService: StudentService, private route: ActivatedRoute, private router: Router) { }
+    private student: Student = new Student();
 
-  ngOnInit() {
-      let studentId = this.route.snapshot.params['id'];
-      
-      if (studentId > 0) {
-         this.studentService.searchById(studentId).then(
-         res => {
-            if (res.status === 1) {
-                this.student = res.result;
-            } else {
-                alert(res.result.message);
-            }
-         });
-       } else {
+    constructor(private helper: HelperService, private config: ConfigService,
+                private studentService: StudentService, private route: ActivatedRoute, private router: Router) {
+    }
+
+    ngOnInit() {
+        let studentId = this.route.snapshot.params['id'];
+        this.searchErrorMessage = null;
+        if (studentId > 0) {
+            this.studentService.searchById(studentId).then(
+                res => {
+                    if (res.status === 1) {
+                        this.student = res.result;
+                    } else {
+                        this.searchErrorMessage = res.message;
+                    }
+                });
+        } else {
             this.student = new Student();
-       }
+        }
 
-  }
+    }
 
     onChangeLocalization(localization: Localization) {
         this.helper.copyLocalization(this.student, localization);
     }
 
     onChangeSpecialNeeds(obj: any) {
-        obj.target.checked?this.student.requireSpecialNeeds = 1:this.student.requireSpecialNeeds = 0;
+        obj.target.checked ? this.student.requireSpecialNeeds = 1 : this.student.requireSpecialNeeds = 0;
         if (this.student.requireSpecialNeeds === 0) {
             this.student.specialNeedsDescription = null;
         }
     }
 
-    onLanguageChange (data:any){
+    onLanguageChange(data: any) {
         this.student.motherTongue = null;
         if (data) {
             this.student.motherTongue = data.name;
@@ -56,21 +59,21 @@ export class StudentRegisterComponent implements OnInit {
     onSave(moveBack: boolean) {
         let fcn = "new";
         if (this.student.id !== null) {
-        fcn = "update";
-        }    
-
-    this.studentService[fcn](this.student).then(
-      res => {
-        if (res.status === 1) {
-          this.clearFields();
-          if (moveBack) {
-            this.router.navigate(['/admin/studentsearch']);
-          }
-
-        } else {
-            alert(res.message);
+            fcn = "update";
         }
-      });
+        this.searchErrorMessage = null;
+        this.studentService[fcn](this.student).then(
+            res => {
+                if (res.status === 1) {
+                    this.clearFields();
+                    if (moveBack) {
+                        this.router.navigate(['/admin/studentsearch']);
+                    }
+
+                } else {
+                    this.searchErrorMessage = res.message;
+                }
+            });
     }
 
     clearFields() {
@@ -78,8 +81,8 @@ export class StudentRegisterComponent implements OnInit {
     }
 
     onSaveAndNew() {
-    this.onSave(false);
-  }
+        this.onSave(false);
+    }
 
 }
 
