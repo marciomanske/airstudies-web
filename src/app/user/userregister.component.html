@@ -122,7 +122,9 @@
 
       <div class="col-lg-12">
         <hr>
-        <app-registerbuttons [validForm]="userForm.form.valid" (save)="onSave(true); userForm.reset()" (saveAndNew)="onSaveAndNew();userForm.reset()"></app-registerbuttons>
+        <app-registerbuttons [validForm]="userForm.form.valid"
+                             (save)="onSave(true, userForm)"
+                             (saveAndNew)="onSaveAndNew()"></app-registerbuttons>
       </div>
     </form>
 

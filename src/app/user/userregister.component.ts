@@ -1,80 +1,88 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Router, ActivatedRoute} from "@angular/router";
 
-import { User } from "../dto/User";
+import {User} from "../dto/User";
 import {UserService} from "../services/user/user.service";
 import {Localization} from "../dto/Localization";
 import {ConfigService} from "../config/config.service";
 import {HelperService} from "../services/helper/helper.service";
 
 @Component({
-  templateUrl: './userregister.component.html',
-  styleUrls: ['../customcss/formstyle.css']
+    templateUrl: './userregister.component.html',
+    styleUrls: ['../customcss/formstyle.css']
 })
-export class UserRegisterComponent implements  OnInit{
+export class UserRegisterComponent implements OnInit {
 
-  user = new User();
+    user = new User();
 
-  constructor(private userService: UserService, private router: Router, private route: ActivatedRoute,
-    private config: ConfigService, private helper: HelperService) {}
+    registerErrorMessage: string = null;
 
-  ngOnInit() {
-    let userId = this.route.snapshot.params['id'];
-
-    if (userId > 0) {
-      this.userService.searchById(userId).then(
-        res => {
-          if (res.status === 1) {
-            this.user = res.result;
-          } else {
-            alert(res.result.message);
-          }
-        }
-      );
-
-    } else {
-      this.user = new User();
+    constructor(private userService: UserService, private router: Router, private route: ActivatedRoute,
+                private config: ConfigService, private helper: HelperService) {
     }
 
-  }
-
-
-  userTypes = this.config.userTypes;
-  recoveryMethods = this.config.recoveryMethods;
-
-  onSave(moveBack: boolean) {
-
-
-    let fcn = "new";
-    if (this.user.id !== null) {
-      fcn = "update";
-    }
-
-
-    this.userService[fcn](this.user).then(
-      res => {
-        if (res.status === 1) {
-          this.clearFields();
-          if (moveBack) {
-            this.router.navigate(['/admin/usersearch']);
-          }
+    ngOnInit() {
+        let userId = this.route.snapshot.params['id'];
+        this.registerErrorMessage = null;
+        if (userId > 0) {
+            this.userService.searchById(userId).then(
+                res => {
+                    if (res.status === 1) {
+                        this.user = res.result;
+                    } else {
+                        alert(res.result.message);
+                    }
+                }
+            );
 
         } else {
-          alert(res.message);
+            this.user = new User();
         }
-      }
-    );
-  }
 
-  onSaveAndNew() {
-    this.onSave(false);
-  }
+    }
 
-  onChangeLocalization(localization: Localization) {
-    this.helper.copyLocalization(this.user, localization);
-  }
 
-  clearFields() {
-    this.user = new User();
-  }
+    userTypes = this.config.userTypes;
+    recoveryMethods = this.config.recoveryMethods;
+
+    onSave(moveBack: boolean, form: any) {
+
+
+        let fcn = "new";
+        if (this.user.id !== null) {
+            fcn = "update";
+        }
+
+
+        this.userService[fcn](this.user).then(
+            res => {
+                if (res.status === 1) {
+                    form.reset();
+                    this.clearFields();
+                    if (moveBack) {
+                        this.router.navigate(['/admin/usersearch']);
+                    }
+                } else {
+                    //alert(res.message);
+                    this.registerErrorMessage = res.message;
+                }
+            }
+        );
+
+
+    }
+
+    onSaveAndNew() {
+        this.onSave(false, null);
+    }
+
+    onChangeLocalization(localization: Localization) {
+        this.helper.copyLocalization(this.user, localization);
+    }
+
+    clearFields() {
+        this.user = new User();
+    }
+
+
 }
