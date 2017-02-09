@@ -124,7 +124,7 @@
         <hr>
         <app-registerbuttons [validForm]="userForm.form.valid"
                              (save)="onSave(true, userForm)"
-                             (saveAndNew)="onSaveAndNew()"></app-registerbuttons>
+                             (saveAndNew)="onSaveAndNew(userForm)"></app-registerbuttons>
       </div>
     </form>
 

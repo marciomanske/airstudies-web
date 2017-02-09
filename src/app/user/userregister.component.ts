@@ -72,8 +72,8 @@ export class UserRegisterComponent implements OnInit {
 
     }
 
-    onSaveAndNew() {
-        this.onSave(false, null);
+    onSaveAndNew(form: any) {
+        this.onSave(false, form);
     }
 
     onChangeLocalization(localization: Localization) {
