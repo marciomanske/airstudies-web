@@ -15,6 +15,8 @@ import {HelperService} from "../services/helper/helper.service";
 })
 export class SchoolRegisterComponent implements OnInit {
 
+  registerErrorMessage: string = null;
+
   constructor(private schoolService: SchoolService, private router: Router, private route: ActivatedRoute,
               private config: ConfigService, private helper: HelperService) { }
 
@@ -41,7 +43,7 @@ export class SchoolRegisterComponent implements OnInit {
               this.selectedLanguages = JSON.parse(this.school.languages);
             }
           } else {
-            alert(res.result.message);
+              this.registerErrorMessage = res.result.message;
           }
         }
       );
@@ -69,7 +71,7 @@ export class SchoolRegisterComponent implements OnInit {
           }
 
         } else {
-          alert(res.message);
+            this.registerErrorMessage = res.message;
         }
       }
     );
