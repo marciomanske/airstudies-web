@@ -12,7 +12,7 @@ import {Router, ActivatedRoute} from "@angular/router";
 })
 export class StudentRegisterComponent implements OnInit {
 
-    searchErrorMessage: string = null;
+    registerErrorMessage: string = null;
 
     private student: Student = new Student();
 
@@ -22,14 +22,14 @@ export class StudentRegisterComponent implements OnInit {
 
     ngOnInit() {
         let studentId = this.route.snapshot.params['id'];
-        this.searchErrorMessage = null;
+        this.registerErrorMessage = null;
         if (studentId > 0) {
             this.studentService.searchById(studentId).then(
                 res => {
                     if (res.status === 1) {
                         this.student = res.result;
                     } else {
-                        this.searchErrorMessage = res.message;
+                        this.registerErrorMessage = res.message;
                     }
                 });
         } else {
@@ -61,7 +61,7 @@ export class StudentRegisterComponent implements OnInit {
         if (this.student.id !== null) {
             fcn = "update";
         }
-        this.searchErrorMessage = null;
+        this.registerErrorMessage = null;
         this.studentService[fcn](this.student).then(
             res => {
                 if (res.status === 1) {
@@ -71,7 +71,7 @@ export class StudentRegisterComponent implements OnInit {
                     }
 
                 } else {
-                    this.searchErrorMessage = res.message;
+                    this.registerErrorMessage = res.message;
                 }
             });
     }
