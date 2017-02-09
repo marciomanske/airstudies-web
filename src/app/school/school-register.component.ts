@@ -54,7 +54,7 @@ export class SchoolRegisterComponent implements OnInit {
 
   }
 
-  onSave(moveBack: boolean) {
+  onSave(moveBack: boolean, form: any) {
 
     let fcn = "new";
     if (this.school.id !== null) {
@@ -66,6 +66,7 @@ export class SchoolRegisterComponent implements OnInit {
       res => {
         if (res.status === 1) {
           this.clearFields();
+          form.reset();
           if (moveBack) {
             this.router.navigate(['/admin/schoolsearch']);
           }
@@ -77,9 +78,9 @@ export class SchoolRegisterComponent implements OnInit {
     );
   }
 
-  onSaveAndNew() {
-    this.onSave(false);
-  }
+    onSaveAndNew(form: any) {
+        this.onSave(false, form);
+    }
 
   onChangeLocalization(localization: Localization) {
     this.helper.copyLocalization(this.school, localization);

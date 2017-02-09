@@ -117,7 +117,8 @@
 
       <div class="col-lg-12">
         <hr>
-        <app-registerbuttons [validForm]="schoolForm.form.valid"  (save)="onSave(true)" (saveAndNew)="onSaveAndNew()"></app-registerbuttons>
+        <app-registerbuttons [validForm]="schoolForm.form.valid"
+                             (save)="onSave(true, schoolForm)" (saveAndNew)="onSaveAndNew(schoolForm)"></app-registerbuttons>
       </div>
     </form>
 
