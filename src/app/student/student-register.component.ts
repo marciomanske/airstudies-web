@@ -56,7 +56,7 @@ export class StudentRegisterComponent implements OnInit {
         }
     }
 
-    onSave(moveBack: boolean) {
+    onSave(moveBack: boolean, form: any) {
         let fcn = "new";
         if (this.student.id !== null) {
             fcn = "update";
@@ -65,6 +65,7 @@ export class StudentRegisterComponent implements OnInit {
         this.studentService[fcn](this.student).then(
             res => {
                 if (res.status === 1) {
+                    form.reset();
                     this.clearFields();
                     if (moveBack) {
                         this.router.navigate(['/admin/studentsearch']);
@@ -80,8 +81,8 @@ export class StudentRegisterComponent implements OnInit {
         this.student = new Student();
     }
 
-    onSaveAndNew() {
-        this.onSave(false);
+    onSaveAndNew(form: any) {
+        this.onSave(false, form);
     }
 
 }
