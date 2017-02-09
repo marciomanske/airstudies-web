@@ -12,8 +12,8 @@ import {User} from "../dto/User";
 export class UserPasswordRecoverComponent implements OnInit {
 
   user: User = null;
-  errorMessage: string = null;
   confirmMessage: string = null;
+  registerErrorMessage: string = null;
 
   constructor(private userService: UserService, private router: Router, private route: ActivatedRoute) {}
 
@@ -38,17 +38,17 @@ export class UserPasswordRecoverComponent implements OnInit {
 
 
   onSave(newPassword: string, newPassword2: string) {
-    this.errorMessage = null;
+    this.registerErrorMessage = null;
     if (newPassword === null || newPassword.trim() === "") {
-      this.errorMessage = "The password cannot be empty";
+      this.registerErrorMessage = "The password cannot be empty";
       return;
     }
     if (newPassword2 === null || newPassword2.trim() === "") {
-      this.errorMessage = "The password cannot be empty";
+      this.registerErrorMessage = "The password cannot be empty";
       return;
     }
     if (newPassword != newPassword2) {
-      this.errorMessage = "The typed passwords must be the same!";
+      this.registerErrorMessage = "The typed passwords must be the same!";
       return;
     }
 
@@ -60,7 +60,7 @@ export class UserPasswordRecoverComponent implements OnInit {
             this.router.navigate(['/']);
           }, 3000);
         } else {
-          this.errorMessage = res.message;
+          this.registerErrorMessage = res.message;
         }
       }
     );
