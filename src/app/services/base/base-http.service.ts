@@ -15,7 +15,7 @@ export class BaseHttpService {
         return res.json();
       })
       .catch(function(error) {
-        return {status: 2, error: error};
+        return {status: 2, message: error};
       });
   }
   executeOther(url: string, method: string, body: any): Promise<any> {
@@ -26,7 +26,7 @@ export class BaseHttpService {
           return res.json();
         })
         .catch(function(error) {
-          return {status: 2, error: error};
+          return {status: 2, message: error};
         });
     } else {
       return this.http.put(this.config.url.baseAddress + url,body, {headers: this.headers})
@@ -35,7 +35,7 @@ export class BaseHttpService {
           return res.json();
         })
         .catch(function(error) {
-          return {status: 2, error: error};
+          return {status: 2, message: error};
         });
     }
   }
