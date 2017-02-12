@@ -11,7 +11,7 @@ export class ConfigService {
 
 
   url = {
-    baseAddress: "http://192.168.0.101:3500",
+    baseAddress: "http://localhost:3500",
     user: {
       login: "/airstudies/services/user/authenticate",
       validateToken: "/airstudies/services/user/validatetoken",
