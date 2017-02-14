@@ -26,6 +26,7 @@ export class StudentSearchComponent extends BaseSerchComponent {
 
     onPlaceChanged(data: any) {
         this.studentSearch.city = null;
+        this.studentSearch.state = null;
         this.studentSearch.country = null;
         if (data && data.address_components) {
             let addressComponents = data.address_components;
