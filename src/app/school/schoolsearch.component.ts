@@ -106,21 +106,21 @@ export class SchoolSearchComponent extends BaseSerchComponent implements OnInit 
       params.push(
         {value: this.school.city,
           operation: 4,
-          attributeName: "city",
+          attributeName: "localization.city",
           like: false});
     }
     if (this.school.state) {
       params.push(
         {value: this.school.state,
           operation: 4,
-          attributeName: "state",
+          attributeName: "localization.state",
           like: false});
     }
     if (this.school.country) {
       params.push(
         {value: this.school.country,
           operation: 4,
-          attributeName: "country",
+          attributeName: "localization.country",
           like: false});
     }
 
