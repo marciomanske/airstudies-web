@@ -52,7 +52,7 @@ import { LoginAdminComponent } from './login/login-admin.component';
     StudentRegisterComponent,
     PropertySearchComponent,
     PropertyRegisterComponent,
-    ContractSearchComponent
+    ContractSearchComponent,
     LoginAdminComponent
 
   ],
