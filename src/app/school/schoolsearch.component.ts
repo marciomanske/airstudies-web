@@ -36,6 +36,7 @@ export class SchoolSearchComponent extends BaseSerchComponent implements OnInit 
 
   onPlaceChanged(data: any) {
     this.school.city = null;
+    this.school.state = null;
     this.school.country = null;
     if (data && data.address_components) {
       let addressComponents = data.address_components;
