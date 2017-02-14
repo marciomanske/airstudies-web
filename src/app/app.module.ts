@@ -36,6 +36,8 @@ import { PropertySearchComponent } from './property/property-search.component';
 import {PropertyRegisterComponent} from './property/property-register.component';
 import {StudentService} from './services/student/student.service';
 import {PropertyService} from './services/property/property.service';
+import {ContractSearchComponent} from './contract/contract-search.component';
+import {ContractService} from './services/contract/contract.service';
 
 @NgModule({
   declarations: [
@@ -47,7 +49,8 @@ import {PropertyService} from './services/property/property.service';
     StudentSearchComponent,
     StudentRegisterComponent,
     PropertySearchComponent,
-    PropertyRegisterComponent
+    PropertyRegisterComponent,
+    ContractSearchComponent
   ],
   imports: [
     BrowserModule,
@@ -56,7 +59,7 @@ import {PropertyService} from './services/property/property.service';
 
   ],
   providers: [LoginService, AuthGuardService, UserService, GoogleService,
-   SchoolService, ConfigService, HelperService, StudentService, PropertyService],
+   SchoolService, ConfigService, HelperService, StudentService, PropertyService, ContractService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

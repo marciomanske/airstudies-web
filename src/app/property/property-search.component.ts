@@ -19,6 +19,7 @@ export class PropertySearchComponent implements OnInit {
     searchResult = [];
     showNoResultsFound: boolean = false;
     propertyToDelete: Property = null;
+    
 
     constructor(private config: ConfigService, private router: Router, 
                 private propertyService: PropertyService) { }
@@ -51,17 +52,16 @@ export class PropertySearchComponent implements OnInit {
         }
     }
 
+    
+
     onSearch() {
             let params = [];
-            this.propertySearch.city = null;
-            this.propertySearch.state = null;
-            this.propertySearch.country = null;
-
-            if (this.propertySearch.name) {
+            
+            if (this.propertySearch.ownerName) {
             params.push(
-                {value: this.propertySearch.name,
+                {value: this.propertySearch.ownerName,
                 operation: 4,
-                attributeName: "name",
+                attributeName: "ownerName",
                 like: true});
         }
 
@@ -109,7 +109,7 @@ export class PropertySearchComponent implements OnInit {
     }
 
     onEdit(id: number) {
-            this.router.navigate(["/admin/studentregister/"+id]);
+            this.router.navigate(["/admin/propertyregister/"+id]);
     }   
 
     onDelete(property: Property) {

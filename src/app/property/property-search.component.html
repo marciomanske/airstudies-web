@@ -6,7 +6,7 @@
     <label for="inputPlace" class="dis">Place</label>
     <input id="inputPlace" class="form-control" name="place"
            path-to-data="results" ng2-auto-complete display-property-name="formatted_address"
-           min-chars="3" no-match-found-text="No city found" max-num-list="5" [source]="googleMapURL"
+           min-chars="3" no-match-found-text="No city found" max-num-list="5" [source]="config.url.googleMapURL"
            (valueChanged)="onPlaceChanged($event)"
 
     />
@@ -14,9 +14,9 @@
 
 
   <div class="form-group col-md-4">
-    <label for="inputNomProp" class="dis">Name</label>
-    <input type="text" class="form-control" id="inputNomProp" placeholder="Owner name..."
-           [(ngModel)]="propertySearch.name" name="name"
+    <label for="inputOwnerName" class="dis">Name</label>
+    <input type="text" class="form-control" id="inputOwnerName" placeholder="Owner name..."
+           [(ngModel)]="propertySearch.ownerName" name="name"
            #name="ngModel"/>
   </div>
 
@@ -61,7 +61,7 @@
           </thead>
           <tbody>
           <tr *ngFor="let propertyResult of searchResult">
-            <td>{{propertyResult.name}}</td>
+            <td>{{propertyResult.ownerName}}</td>
             <td>{{propertyResult.city}}</td>
             <td>{{propertyResult.country}}</td>
             <td>
