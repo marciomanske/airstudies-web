@@ -32,6 +32,7 @@ export class PropertySearchComponent extends BaseSerchComponent {
 
     onPlaceChanged(data: any) {
         this.propertySearch.city = null;
+        this.propertySearch.state = null;
         this.propertySearch.country = null;
         if (data && data.address_components) {
             let addressComponents = data.address_components;
