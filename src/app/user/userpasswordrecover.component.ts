@@ -20,14 +20,15 @@ export class UserPasswordRecoverComponent implements OnInit {
 
   ngOnInit() {
     let token = this.route.snapshot.queryParams['token'];
-
+    this.registerErrorMessage = null;
+    this.confirmMessage = null;
     if (token != null) {
       this.userService.searchByToken(token).then(
         res => {
           if (res.status === 1) {
             this.user = res.user;
           } else {
-            alert(res.message);
+            this.registerErrorMessage = res.message;
           }
         }
       );
