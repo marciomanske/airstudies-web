@@ -15,6 +15,8 @@ import {HelperService} from "../services/helper/helper.service";
 })
 export class SchoolRegisterComponent implements OnInit {
 
+  registerErrorMessage: string = null;
+
   constructor(private schoolService: SchoolService, private router: Router, private route: ActivatedRoute,
               private config: ConfigService, private helper: HelperService) { }
 
@@ -41,7 +43,7 @@ export class SchoolRegisterComponent implements OnInit {
               this.selectedLanguages = JSON.parse(this.school.languages);
             }
           } else {
-            alert(res.result.message);
+              this.registerErrorMessage = res.result.message;
           }
         }
       );
@@ -52,7 +54,7 @@ export class SchoolRegisterComponent implements OnInit {
 
   }
 
-  onSave(moveBack: boolean) {
+  onSave(moveBack: boolean, form: any) {
 
     let fcn = "new";
     if (this.school.id !== null) {
@@ -64,20 +66,21 @@ export class SchoolRegisterComponent implements OnInit {
       res => {
         if (res.status === 1) {
           this.clearFields();
+          form.reset();
           if (moveBack) {
             this.router.navigate(['/admin/schoolsearch']);
           }
 
         } else {
-          alert(res.message);
+            this.registerErrorMessage = res.message;
         }
       }
     );
   }
 
-  onSaveAndNew() {
-    this.onSave(false);
-  }
+    onSaveAndNew(form: any) {
+        this.onSave(false, form);
+    }
 
   onChangeLocalization(localization: Localization) {
     this.helper.copyLocalization(this.school, localization);

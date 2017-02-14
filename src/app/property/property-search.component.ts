@@ -1,40 +1,39 @@
-import { Component, OnInit } from '@angular/core';
+import {Component} from '@angular/core';
 import {Property} from "../dto/Property";
 import {ConfigService} from "../config/config.service";
 import {Status} from "../dto/Status";
 import {Router} from "@angular/router";
 import {PropertyService} from "../services/property/property.service";
 import {PropertySearch} from "../dto/PropertySearch";
+import {BaseSerchComponent} from "../basecomponent/base-search-component";
 
 @Component({
-  selector: 'app-property-search',
-  templateUrl: './property-search.component.html',
-  styleUrls: ['../customcss/formstyle.css']
+    selector: 'app-property-search',
+    templateUrl: './property-search.component.html',
+    styleUrls: ['../customcss/formstyle.css']
 })
 
-export class PropertySearchComponent implements OnInit {
+export class PropertySearchComponent extends BaseSerchComponent {
 
-    propertySearch: PropertySearch = new PropertySearch(null, null, null, null, null);
+    propertySearch: PropertySearch = new PropertySearch();
     propertyStatus: Status[] = this.config.statusList;
-    searchResult = [];
-    showNoResultsFound: boolean = false;
     propertyToDelete: Property = null;
     
 
-    constructor(private config: ConfigService, private router: Router, 
-                private propertyService: PropertyService) { }
-   
-
-    ngOnInit() {
+    constructor(private config: ConfigService, private router: Router,
+                private propertyService: PropertyService) {
+        super();
     }
 
+
     onNewRegister() {
-       this.router.navigate(['/admin/propertyregister/-1']);
-  }
-     
+        this.router.navigate(['/admin/propertyregister/-1']);
+    }
+
 
     onPlaceChanged(data: any) {
         this.propertySearch.city = null;
+        this.propertySearch.state = null;
         this.propertySearch.country = null;
         if (data && data.address_components) {
             let addressComponents = data.address_components;
@@ -55,86 +54,106 @@ export class PropertySearchComponent implements OnInit {
     
 
     onSearch() {
-            let params = [];
-            
-            if (this.propertySearch.ownerName) {
+
+        this.searchErrorMessage = null;
+        let params = [];
+        this.propertySearch.city = null;
+        this.propertySearch.state = null;
+        this.propertySearch.country = null;
+
+        if (this.propertySearch.name) {
             params.push(
-                {value: this.propertySearch.ownerName,
-                operation: 4,
-                attributeName: "ownerName",
-                like: true});
+                {
+                    value: this.propertySearch.ownerName,
+                    operation: 4,
+                    attributeName: "ownerName",
+                    like: true
+                });
+
         }
 
-            let value = parseInt(this.propertySearch.status === "ALL"?"-1":this.propertySearch.status, 10);
+        let value = parseInt(this.propertySearch.status === "ALL" ? "-1" : this.propertySearch.status, 10);
 
-            if (value >= 0) {
+        if (value >= 0) {
             params.push(
-                {value: value,
-                operation: 1,
-                attributeName: "active",
-                like: false});
-            }
+                {
+                    value: value,
+                    operation: 1,
+                    attributeName: "active",
+                    like: false
+                });
+        }
 
-            if (this.propertySearch.city) {
+        if (this.propertySearch.city) {
             params.push(
-                {value: this.propertySearch.city,
-                operation: 4,
-                attributeName: "localization.city",
-                like: false});
-            }
+                {
+                    value: this.propertySearch.city,
+                    operation: 4,
+                    attributeName: "localization.city",
+                    like: false
+                });
+        }
 
-            if (this.propertySearch.state) {
+        if (this.propertySearch.state) {
             params.push(
-                {value: this.propertySearch.state,
-                operation: 4,
-                attributeName: "localization.state",
-                like: false});
-            }
+                {
+                    value: this.propertySearch.state,
+                    operation: 4,
+                    attributeName: "localization.state",
+                    like: false
+                });
+        }
 
-            if (this.propertySearch.country) {
+        if (this.propertySearch.country) {
             params.push(
-                {value: this.propertySearch.country,
-                operation: 4,
-                attributeName: "localization.country",
-                like: false});
-            }
+                {
+                    value: this.propertySearch.country,
+                    operation: 4,
+                    attributeName: "localization.country",
+                    like: false
+                });
+        }
 
         this.propertyService.search(params).then(
             res => {
                 if (res.status === 1) {
                     this.searchResult = res.result;
                     this.showNoResultsFound = this.searchResult.length === 0;
+                } else {
+                    this.searchErrorMessage = "Error executing search";
                 }
             });
     }
 
     onEdit(id: number) {
+
             this.router.navigate(["/admin/propertyregister/"+id]);
     }   
 
     onDelete(property: Property) {
-            this.propertyToDelete = property;
+        this.propertyToDelete = property;
     }
 
     onConfirmDelete() {
         if (this.propertyToDelete) {
+            this.searchErrorMessage = null;
             let localProperty = this.propertyToDelete;
             this.propertyToDelete = null;
             if (localProperty.active === 0) {
-                alert("Property is already inactive");
-            }else {
+                this.searchErrorMessage = "Property is already inactive";
+            } else {
                 localProperty.active = 0;
                 this.propertyService.update(localProperty).then(
-            res => {
-                if (res.status === 1) {
-                    this.onSearch();
-                    }else {
-                        alert(res.message);
-                     }
-            })
-            }  
+                    res => {
+                        if (res.status === 1) {
+                            this.onSearch();
+                        } else {
+                            this.searchErrorMessage = res.message;
+                        }
+                    })
+            }
         }
     }
-  
+
 
 }

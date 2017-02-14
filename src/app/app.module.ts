@@ -7,7 +7,6 @@ import { Ng2AutoCompleteModule } from 'ng2-auto-complete';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
-import { CarouselComponent } from './carousel/carousel.component';
 import { AppRoutingModule }     from './app-routing.module';
 import { MainComponent } from './main/main.component';
 import { AdminComponent } from './admin/admin.component';
@@ -38,10 +37,13 @@ import {StudentService} from './services/student/student.service';
 import {PropertyService} from './services/property/property.service';
 import {ContractSearchComponent} from './contract/contract-search.component';
 import {ContractService} from './services/contract/contract.service';
+import { LoginAdminComponent } from './login/login-admin.component';
+
+
 
 @NgModule({
   declarations: [
-    AppComponent, LoginComponent, CarouselComponent, CarouselComponent, MainComponent, MainComponent, AdminComponent,
+    AppComponent, LoginComponent, MainComponent, MainComponent, AdminComponent,
     UserSearchComponent, FastSearchComponent, SearchButtonsComponent, DeleteDialogComponent, UserRegisterComponent, RegisterButtonsComponent, UserPasswordRecoverComponent,
     SchoolSearchComponent,
     LocalizationComponent,
@@ -51,6 +53,8 @@ import {ContractService} from './services/contract/contract.service';
     PropertySearchComponent,
     PropertyRegisterComponent,
     ContractSearchComponent
+    LoginAdminComponent
+
   ],
   imports: [
     BrowserModule,

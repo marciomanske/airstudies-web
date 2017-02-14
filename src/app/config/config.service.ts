@@ -8,10 +8,11 @@ import { UserType } from '../dto/UserType';
 @Injectable()
 export class ConfigService {
 
-
+  private baseAddressLocal: string = "http://localhost:3500";
+  private baseAddressAWS: string = "http://sample-env.uaau97xcia.us-west-2.elasticbeanstalk.com";
 
   url = {
-    baseAddress: "http://sample-env.uaau97xcia.us-west-2.elasticbeanstalk.com",
+    baseAddress: this.baseAddressAWS,
     user: {
       login: "/airstudies/services/user/authenticate",
       validateToken: "/airstudies/services/user/validatetoken",

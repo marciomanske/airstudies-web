@@ -5,6 +5,7 @@
 export class Student {
 
     constructor (
+        public id: number = null,
         public name: string = null,
         public document: string = null,
         public email: string = null,
@@ -21,7 +22,6 @@ export class Student {
         public addressLine2: string = null, public city: string = null,
         public state: string = null, public  country: string = null, 
         public postalCode: string = null,
-        public id : number = null,
         public school: string = null
     ) {}
 

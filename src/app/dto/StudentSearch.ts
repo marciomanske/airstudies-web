@@ -9,7 +9,7 @@ export class StudentSearch {
                  public state:string = null, 
                  public country: string = null,
                  public school: string = null,
-                 public status: string,
+                 public status: string = null,
                  public active: number = 1,   
                  ) {}
 
