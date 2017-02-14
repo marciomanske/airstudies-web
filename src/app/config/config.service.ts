@@ -12,7 +12,7 @@ export class ConfigService {
   private baseAddressAWS: string = "http://sample-env.uaau97xcia.us-west-2.elasticbeanstalk.com";
 
   url = {
-      baseAddress: this.baseAddressAWS,
+    baseAddress: this.baseAddressAWS,
     user: {
       login: "/airstudies/services/user/authenticate",
       validateToken: "/airstudies/services/user/validatetoken",
@@ -26,21 +26,28 @@ export class ConfigService {
     school: {
       find: "/airstudies/services/school/list",
       findById:"/airstudies/services/school",
-      new:"/airstudies/services/user/school",
+      new:"/airstudies/services/school/new",
       update: "/airstudies/services/school/update"
     },
     student: {
       find: "/airstudies/services/student/list",
       findById:"/airstudies/services/student",
-      new:"/airstudies/services/user/student",
+      new:"/airstudies/services/student/new",
       update: "/airstudies/services/student/update"
     },
 
     property: {
       find: "/airstudies/services/property/list",
       findById:"/airstudies/services/property",
-      new:"/airstudies/services/user/property",
+      new:"/airstudies/services/property/new",
       update: "/airstudies/services/property/update"
+    },
+
+    contract: {
+      find: "/airstudies/services/contract/list",
+      findById:"/airstudies/services/contract",
+      new:"/airstudies/services/contract/new",
+      update: "/airstudies/services/contract/update"
     },
 
     googleMapURL: "https://maps.googleapis.com/maps/api/geocode/json?address=:my_own_keyword&language=en"
@@ -76,6 +83,36 @@ export class ConfigService {
     new UserType("AGENCY", "Agency"),
     new UserType("HOUSE_OWNER", "House Owner")
   ];
+
+  allowences = [
+    {value: 1, label:"Smoking"},
+    {value: 2, label:"Alcoholic Beverages"},
+    {value: 3, label:"Couples"},
+  ]
+
+  propertyTypes = [
+    {value:"VOID", label: "None"},
+    {value:"HOUSE", label: "House"},
+    {value:"FLAT", label: "Flat"},
+    {value:"HOSTEL", label: "Hostel"},
+    {value:"HOTEL", label: "Hotel"},
+    {value:"BASEMENT", label: "Basement"}
+  ];
+
+  transportations = [
+      {value: 1, label: "Subway"},
+      {value: 2, label: "Train"},
+      {value: 3, label: "Street Car"},
+      {value: 4, label: "Bus"}
+  ]
+
+  facilities = [
+      {value: 1, label: "Internet"},
+      {value: 2, label: "Loundry"},
+      {value: 3, label: "Clothes Dryer"},
+      {value: 4, label: "Kitchen"}
+  ]
+
 
   worldLanguages = [
       {code: "aa", name: "Afar"},

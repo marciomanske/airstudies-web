@@ -2,172 +2,243 @@
 <hr>
 <section class="dados col-md-12">
   <article class="row">
-    <form #schoolForm="ngForm">
+    <form #propertyForm="ngForm">
       <h4 class="col-md-12">Identification</h4>
 
       <div class="form-group col-md-6">
         <label for="inputNomeProprietario">Owner Name</label>
-        <input type="text" class="form-control" id="inputNomeProprietario" placeholder="Owner Name" required name="name" [(ngModel)]="Property.name"
+        <input type="text" class="form-control" id="inputNomeProprietario" placeholder="Owner Name" 
+        required name="name" [(ngModel)]="property.ownerName"
           #name="ngModel" />
         <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
           Owner name is required
         </div>
       </div>
-
+<!--
       <div class="form-group col-md-3">
         <label for="inputRegistro">Owner Legal Document</label>
-        <input type="text" class="form-control" id="inputRegistro" placeholder="Document Number" required #document="ngModel" [(ngModel)]="Property.document"
-          name="document" />
+        <input type="text" class="form-control" id="inputRegistro" placeholder="Document Number"
+         required #document="ngModel" [(ngModel)]="property.ownerDocument"
+          name="ownerDocument" />
         <div [hidden]="document.valid || document.pristine" class="alert alert-danger">
           Document is required
         </div>
-      </div>
+      </div>           -->
+
+      <div class="form-group col-md-3">
+        <label for="inputPlace" >Owner Origins</label>
+        <input id="inputPlace" class="form-control" path-to-data="results" 
+          ng2-auto-complete display-property-name="formatted_address"
+          min-chars="3" no-match-found-text="No city found" max-num-list="5" 
+          name="ownerCountry" [(ngModel)]="property.ownerCountry"
+          [source]="config.url.googleMapURL" (valueChanged)="onOwnerPlaceChanged($event)"
+        />
+      </div> 
+
 
       <div class="form-group col-md-3">
         <label for="language">Mother tongue</label>
-        <input id="language" class="form-control" name="language" ng2-auto-complete display-property-name="name" no-match-found-text="No language found"
-          max-num-list="5" [source]="config.worldLanguages" value-property-name="code" />
+        <input id="language" class="form-control" name="language" 
+        ng2-auto-complete display-property-name="name" 
+         no-match-found-text="No language found"max-num-list="5" 
+        [source]="config.worldLanguages" (valueChanged)="onLanguageChange($event)"
+        [(ngModel)]="property.ownerMotherTongue"
+         />
       </div>
 
       <div class="form-group col-md-6">
         <label for="propertyEmail">Email</label>
-        <input type="email" class="form-control" id="propertyEmail" placeholder="Email" [(ngModel)]="Property.email" name="contactEmail"
+        <input type="email" class="form-control" id="propertyEmail" placeholder="Email" 
+        [(ngModel)]="property.ownerEmail" name="contactEmail"
         />
       </div>
 
       <div class="form-group col-md-3">
         <label for="contactPhone">Phone</label>
-        <input type="tel" class="form-control" id="contactPhone" placeholder="Phone number" [(ngModel)]="Property.phone" name="contactPhone"
+        <input type="tel" class="form-control" id="contactPhone" placeholder="Phone number" 
+        [(ngModel)]="property.ownerPhone" name="contactPhone"
         />
       </div>
 
-
-      <div class="form-group col-md-3">
-        <label for="inputTipoP">Property Type</label>
-        <select id="inputTipoP" class="form-control" data-width="100%">
-                            <option>Casa</option>
-                            <option>Hostel</option>
-                            <option>Prédio</option>
-                            <option>Apartamento</option>
-                            <option>Quarto</option>
-                        </select>
+      <div class="form-group col-lg-3">
+        <label for="inputType">Property Type</label>
+        <select class="form-control"  id="inputType"
+                [(ngModel)]="property.propertyType" name="inputType" required #type="ngModel">
+          <option *ngFor="let type of propertyTypes" [value]="type.value">{{type.label}}</option>
+        </select>
+        <div [hidden]="type.valid || type.pristine"
+             class="alert alert-danger">
+          Property Type is required
+        </div>
       </div>
 
-
-      <div class="form-group col-md-4">
-        <label for="inputPlace" class="dis">Owner Origins</label>
-        <input id="inputPlace" class="form-control" name="place" path-to-data="results" ng2-auto-complete display-property-name="formatted_address"
-          min-chars="3" no-match-found-text="No city found" max-num-list="5" [source]="googleMapURL" (valueChanged)="onPlaceChanged($event)"
-        />
+      <div class="form-group col-md-1">
+        <label></label>
+        <label>
+          <input type="checkbox" name="active"
+                 [checked]="property.active === 1"
+                 (change)="$event.target.checked?property.active = 1:property.active = 0"
+          /> Active
+        </label>
       </div>
+      
 
-      <app-localization [addressLine1]="Property.addressLine1" [addressLine2]="Property.addressLine2" 
-      [city]="Property.city" [state]="Property.state"
-        [country]="Property.country" [postalCode]="Property.postalCode" 
+      <app-localization [addressLine1]="property.addressLine1" [addressLine2]="property.addressLine2" 
+      [city]="property.city" [state]="property.state"
+        [country]="property.country" [postalCode]="property.postalCode" 
         (localization)="onChangeLocalization($event)">
       </app-localization>
 
-      <!-- Tipos de Quartos ===========================================================================-->
-      <h4 class="col-md-12">Type of Available Rooms </h4>
-      <div class="col-md-6 tq form-group">
-        <input type="checkbox"> Suite <br>
-        <div class="input-group">
-          <span class="input-group-addon" id="basic-addon1">#</span>
-          <input type="text" class="form-control" placeholder="Amount of Suits" aria-describedby="basic-addon1">
-        </div>
-      </div>
-      <div class="col-md-6 tq form-group">
-        <input type="checkbox">Single Room <br>
-        <div class="input-group">
-          <span class="input-group-addon" id="basic-addon2">#</span>
-          <input type="text" class="form-control" placeholder="Amount of Single Rooms" aria-describedby="basic-addon2">
-        </div>
-      </div>
+      
 
-      <div class="col-md-6 tq form-group">
-        <input type="checkbox"> Shared Room <br>
-        <div class="input-group">
-          <span class="input-group-addon" id="basic-addon4">#</span>
-          <input type="text" class="form-control" placeholder="Amount of Shared Rooms" aria-describedby="basic-addon4">
-        </div><br>
-        <div class="input-group">
-          <span class="input-group-addon" id="basic-addon4a">Number of Guests</span>
-          <input type="text" class="form-control" placeholder="Amount of Guests" aria-describedby="basic-addon4a">
-        </div>
-      </div>
-      <!-- Facilidades Oferecidas =====================================================================-->
-      <h4 class="col-md-12">Includes</h4>
-      <div class="col-md-12 form-group fc">
-        <input type="checkbox" class="first"> Internet
-        <input type="checkbox"> Loundry
-        <input type="checkbox"> Clothes Dryer
-        <input type="checkbox"> Kitchen <br>
-        <div class="col-md-3 row">
-          <div class="input-group">
-            <span class="input-group-addon">
-                          <input type="checkbox" aria-label="Refeições"> Meals
-                        </span>
-            <input type="text" class="form-control" aria-label="..." placeholder="Number of Meals">
+      <h4 class="col-md-12">Available Room Types</h4>
+
+      <div class="col-lg-12 form-group fc">
+          <div class="col-md-4">
+            <div class="input-group">
+              <span class="input-group-addon">
+                  <input type="checkbox" 
+                  [checked]="isRoomTypeChecked(suite)"
+                  (click)="onRoomTypeClick(suite)"> 
+                  {{suite.label}}
+              </span>
+              <input type="number" class="form-control" aria-label="..." placeholder="# of Suites"
+              [required] = "isRoomTypeChecked(suite) == 1"
+              [disabled]="!isRoomTypeChecked(suite)"
+              [(ngModel)]="suite.amount"
+              name="suiteAmount"/>
+            </div>
           </div>
-          <!-- /input-group -->
-        </div>
-        <!-- /.col-lg-6 -->
-      </div><br>
 
-      <!-- Facilidades Transporte =====================================================================-->
+          <div class="col-md-4">
+            <div class="input-group">
+              <span class="input-group-addon">
+                  <input type="checkbox" 
+                  [checked]="isRoomTypeChecked(single)"
+                  (click)="onRoomTypeClick(single)">
+                  {{single.label}}
+              </span>
+              <input type="text" class="form-control" aria-label="..." placeholder="# of Singles"
+              [required] = "isRoomTypeChecked(single) == 1"
+              [disabled]="!isRoomTypeChecked(single)"
+              [(ngModel)]="single.amount"
+              name="singleAmount"
+              />
+            </div>      
+          </div>
+
+          <div class="col-md-4">
+            <div class="input-group">
+              <span class="input-group-addon">
+                  <input type="checkbox" 
+                  [checked]="isRoomTypeChecked(shared)"
+                  (click)="onRoomTypeClick(shared)">
+                  {{shared.label}}
+              </span>
+              <input type="text" class="form-control" aria-label="..." placeholder="# of Shared"
+              [required] = "isRoomTypeChecked(shared) == 1"
+              [disabled]="!isRoomTypeChecked(shared)"
+              [(ngModel)]="shared.amount"
+              name="sharedAmount"
+              />
+            </div>      
+          </div>
+      </div>
+
+
       <h4 class="col-md-12">Transports</h4>
-      <div class="col-md-12 form-group fc">
-        <input type="checkbox" class="first"> Subway
-        <input type="checkbox"> Train
-        <input type="checkbox"> StreetCar
-        <input type="checkbox"> VLT
+        <div class="col-md-12 form-group fc">
+         <label class="checkbox-inline" *ngFor="let transportation of config.transportations">
+         <input type="checkbox" [checked]="getSelected(transportation.value, selectedTransportation)"
+                (click)="onCheckBoxClick(transportation.value, selectedTransportation, 'transportation', null)">
+                  {{transportation.label}}
+       </label>
       </div>
       <div class="form-group col-md-12">
-        <div class="col-md-12 row">
-          <div class="input-group">
-            <span class="input-group-addon">
-                          <input type="checkbox" aria-label="Refeições"> Others
-                        </span>
-            <input type="text" class="form-control" aria-label="..." value="" data-role="tagsinput">
+          <div class="input-group"> 
+            <span class="input-group-addon"id="others">Others</span> 
+                <input type="text" class="form-control" id="othersTransports" aria-describedby="basic-addon5" 
+                       [(ngModel)] = "property.otherTransports" name="othersTransports"/>
           </div>
-          <!-- /input-group -->
-        </div>
       </div>
 
-
-      <!-- Outras Caracteristicas =====================================================================-->
+      <h4 class="col-md-12">Facilities</h4>
+      <div class="col-md-12 form-group fc">
+        <label class = "checkbox-inline" *ngFor ="let facilities of config.facilities"> 
+          <input type="checkbox" [checked] = "getSelected(facilities.value, selectedFacilities)"
+            (click)="onCheckBoxClick(facilities.value, selectedFacilities, 'facilities', null)">
+            {{facilities.label}}
+        </label>
+      </div>
+   
+         <div class="col-md-3">
+            <div class="input-group">
+              <span class="input-group-addon">
+                Meals
+              </span>
+                <input type="number" class="form-control" aria-label="..." placeholder="# of Meals"
+                [(ngModel)]= "property.numberOfMeals" name="propertyMeals"/>
+            </div>
+          </div>
 
       <h4 class="form-group col-md-12">Others Features</h4>
-
       <div class="col-md-12 form-group">
         <div class="input-group">
-          <span class="input-group-addon" id="basic-addon5">Animals</span>
-          <input type="text" class="form-control" id="animais" aria-describedby="basic-addon5" value="Racoon, Fish, Dogs" data-role="tagsinput">
+          <span class="input-group-addon">Pets</span> 
+          <input type="text" class="form-control" id="animais" aria-describedby="basic-addon5" 
+            placeholder="Cats, Dogs, Racoon..." [(ngModel)] = "property.pets" name="animals"/>
         </div>
       </div>
 
       <div class="col-md-12 form-group">
         <div class="input-group">
           <span class="input-group-addon" id="basic-addon6">Meals Served</span>
-          <input type="text" class="form-control" id="comida" aria-describedby="basic-addon6" value="Typical Food, SeaFood, Vegetarian"
-            data-role="tagsinput">
+          <input type="text" class="form-control" id="comida" aria-describedby="basic-addon6" 
+            placeholder="Typical Foods, Vegetarian ..." [(ngModel)] = "property.otherFoodTypes" name="Meals"/>
         </div>
       </div>
-      
+
+      <h4 class="form-group col-md-12">Allowences</h4>
       <div class="col-md-12 form-group fc">
-        <input type="checkbox" class="first"> Smoking Allowed
-        <input type="checkbox"> Allows alcoholic beverages
-        <input type="checkbox"> Couples Allowed
+        <label *ngFor="let allowence of config.allowences" class="form-group col-lg-3 checkbox">
+          <input type="checkbox" name="allowence"
+           [checked]="getSelected(allowence.value, selectedAllowences)"
+            (click)="onCheckBoxClick(allowence.value, selectedAllowences, 'allowence')"
+                 /> {{allowence.label}}
+        </label>
       </div>
-  
+      
+      <!--
+      <div class="form-group col-lg-3 checkbox">
+        <label>
+          <input type="checkbox" name="activeBeverages"
+                 [checked]="property.active === 1"
+                 (change)="$event.target.checked?property.active = 1:property.active = 0"
+                 />  Alcoholic beverages
+        </label>
+      </div>
+
+      <div class="form-group col-lg-3 checkbox">
+        <label>
+          <input type="checkbox" name="activeCouples"
+                 [checked]="property.active === 1"
+                 (change)="$event.target.checked?property.active = 1:property.active = 0"
+                 /> Couples 
+        </label>
+      </div>
+   
       <div class="form-group col-md-12">
         <label for="observation">Observation</label>
-        <textarea class="form-control" rows="6" id="observation" [(ngModel)]="Property.observation" name="observation"></textarea>
+        <textarea class="form-control" rows="6" id="observation" [(ngModel)]="property.observation" name="observation"></textarea>
       </div>
+      -->
 
-
-      <div class="col-md-12">
-        <button class="btn btn-success pull-right cadusr" id="gravar">Save</button>
-        <button class="btn btn-success pull-right cadusr" id="gr_nv">Save and New</button>
-        <button class="btn btn-primary pull-right cadusr" id="cancel">Cancel</button>
+      <div class="col-lg-12">
+        <hr>
+        <app-registerbuttons [validForm]="propertyForm.form.valid"  
+        (save)="onSave(true,propertyForm)" (saveAndNew)="onSaveAndNew(propertyForm)"></app-registerbuttons>
       </div>
+    </form>
+  </article>
+</section>
+

@@ -18,6 +18,7 @@ export class PropertySearchComponent extends BaseSerchComponent {
     propertySearch: PropertySearch = new PropertySearch();
     propertyStatus: Status[] = this.config.statusList;
     propertyToDelete: Property = null;
+    
 
     constructor(private config: ConfigService, private router: Router,
                 private propertyService: PropertyService) {
@@ -50,7 +51,10 @@ export class PropertySearchComponent extends BaseSerchComponent {
         }
     }
 
+    
+
     onSearch() {
+
         this.searchErrorMessage = null;
         let params = [];
         this.propertySearch.city = null;
@@ -60,11 +64,12 @@ export class PropertySearchComponent extends BaseSerchComponent {
         if (this.propertySearch.name) {
             params.push(
                 {
-                    value: this.propertySearch.name,
+                    value: this.propertySearch.ownerName,
                     operation: 4,
-                    attributeName: "name",
+                    attributeName: "ownerName",
                     like: true
                 });
+
         }
 
         let value = parseInt(this.propertySearch.status === "ALL" ? "-1" : this.propertySearch.status, 10);
@@ -121,8 +126,9 @@ export class PropertySearchComponent extends BaseSerchComponent {
     }
 
     onEdit(id: number) {
-        this.router.navigate(["/admin/studentregister/" + id]);
-    }
+
+            this.router.navigate(["/admin/propertyregister/"+id]);
+    }   
 
     onDelete(property: Property) {
         this.propertyToDelete = property;
