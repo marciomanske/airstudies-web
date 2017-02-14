@@ -1,5 +1,10 @@
 <h3 class="text-center">Property</h3>
 <hr>
+<div class="alert alert-danger" role="alert" *ngIf="registerErrorMessage !== null">
+  {{registerErrorMessage}}
+</div>
+
+
 <section class="dados col-md-12">
   <article class="row">
     <form #propertyForm="ngForm">
