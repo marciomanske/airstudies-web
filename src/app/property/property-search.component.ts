@@ -61,7 +61,7 @@ export class PropertySearchComponent extends BaseSerchComponent {
         this.propertySearch.state = null;
         this.propertySearch.country = null;
 
-        if (this.propertySearch.name) {
+        if (this.propertySearch.ownerName) {
             params.push(
                 {
                     value: this.propertySearch.ownerName,

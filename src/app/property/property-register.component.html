@@ -160,10 +160,11 @@
        </label>
       </div>
       <div class="form-group col-md-12">
-          <div class="input-group"> 
-            <span class="input-group-addon"id="others">Others</span> 
-                <input type="text" class="form-control" id="othersTransports" aria-describedby="basic-addon5" 
-                       [(ngModel)] = "property.otherTransports" name="othersTransports"/>
+          <div class="input-group">
+            <label for="pets">Other</label>
+            <rl-tag-input id="otherTransports" [(ngModel)]="otherTransports" name="otherTransports"
+                            placeholder="+ Transport">
+            </rl-tag-input>
           </div>
       </div>
 
@@ -187,19 +188,26 @@
           </div>
 
       <h4 class="form-group col-md-12">Others Features</h4>
-      <div class="col-md-12 form-group">
-        <div class="input-group">
-          <span class="input-group-addon">Pets</span> 
-          <input type="text" class="form-control" id="animais" aria-describedby="basic-addon5" 
-            placeholder="Cats, Dogs, Racoon..." [(ngModel)] = "property.pets" name="animals"/>
-        </div>
-      </div>
+
 
       <div class="col-md-12 form-group">
         <div class="input-group">
-          <span class="input-group-addon" id="basic-addon6">Meals Served</span>
-          <input type="text" class="form-control" id="comida" aria-describedby="basic-addon6" 
-            placeholder="Typical Foods, Vegetarian ..." [(ngModel)] = "property.otherFoodTypes" name="Meals"/>
+
+          <label for="pets">Pets</label>
+          <rl-tag-input id="pets" [(ngModel)]="pets" name="pets"
+                  placeholder="+ Pet">
+          </rl-tag-input>
+        </div>
+      </div>
+
+
+      <div class="col-md-12 form-group">
+        <div class="input-group">
+          <label for="pets">Meals Served</label>
+          <rl-tag-input id="otherFoodTypes" [(ngModel)]="otherFoodTypes" name="otherFoodTypes"
+                        placeholder="+ Meal">
+          </rl-tag-input>
+
         </div>
       </div>
 
@@ -246,4 +254,10 @@
     </form>
   </article>
 </section>
+
+
+<script src="../../assets/js/bootstrap-select.min.js"></script>
+<script src="../../assets/js/bootstrap-tagsinput-angular.min.js"></script>
+<script src="../../assets/js/bootstrap-tagsinput.min.js"></script>
+
 

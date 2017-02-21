@@ -9,7 +9,7 @@ import { UserType } from '../dto/UserType';
 export class ConfigService {
 
   private baseAddressLocal: string = "http://localhost:3500";
-  private baseAddressAWS: string = "http://sample-env.uaau97xcia.us-west-2.elasticbeanstalk.com";
+  private baseAddressAWS: string = "http://104.236.9.163:3500";
 
   url = {
     baseAddress: this.baseAddressAWS,
