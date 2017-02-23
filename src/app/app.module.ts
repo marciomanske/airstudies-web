@@ -40,8 +40,7 @@ import { LoginAdminComponent } from './login/login-admin.component';
 import {TagInputComponent} from "./commons/tags-input/tag-input/tag-input.component";
 import {TagInputItemComponent} from "./commons/tags-input/tag-input-item/tag-input-item.component";
 import {TagInputAutocompleteComponent} from "./commons/tags-input/tag-input-autocomplete/tag-input-autocomplete.component";
-
-
+import { PropertyAvailabilityComponent } from './availability/property-availability.component';
 
 
 @NgModule({
@@ -56,8 +55,8 @@ import {TagInputAutocompleteComponent} from "./commons/tags-input/tag-input-auto
     PropertySearchComponent,
     PropertyRegisterComponent,
     ContractSearchComponent,
-    LoginAdminComponent, TagInputComponent, TagInputItemComponent, TagInputAutocompleteComponent
-
+    LoginAdminComponent, TagInputComponent, TagInputItemComponent, TagInputAutocompleteComponent,
+    PropertyAvailabilityComponent
   ],
   imports: [
     BrowserModule,
