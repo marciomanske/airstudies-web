@@ -45,7 +45,7 @@ export class SchoolSearchComponent extends BaseSerchComponent implements OnInit 
         if (item.types.indexOf("locality") >= 0) {
           this.school.city = item.long_name;
         } else if (item.types.indexOf("administrative_area_level_1") >= 0) {
-          this.school.state = item.long_name;
+          this.school.state = item.short_name;
         } else if (item.types.indexOf("country") >= 0) {
           this.school.country = item.long_name;
         }
