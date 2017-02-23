@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-
 import { Language } from '../dto/Language';
 import { Status } from '../dto/Status';
 import { UserType } from '../dto/UserType';
@@ -9,7 +8,8 @@ import { UserType } from '../dto/UserType';
 export class ConfigService {
 
   private baseAddressLocal: string = "http://localhost:3500";
-  private baseAddressAWS: string = "http://sample-env.uaau97xcia.us-west-2.elasticbeanstalk.com";
+  //private baseAddressAWS: string = "http://192.168.0.102:3500";
+  private baseAddressAWS: string = "http://104.236.9.163:3500";
 
   url = {
     baseAddress: this.baseAddressAWS,
@@ -21,13 +21,14 @@ export class ConfigService {
       new: "/airstudies/services/user/new",
       update: "/airstudies/services/user/update",
       updatePassword: "/airstudies/services/user/updatePassword",
-      recoverPassword: "/airstudies/services/user/recoverpassword",
+      recoverPassword: "/airstudies/services/user/recoverpassword"
     },
     school: {
       find: "/airstudies/services/school/list",
       findById:"/airstudies/services/school",
       new:"/airstudies/services/school/new",
-      update: "/airstudies/services/school/update"
+      update: "/airstudies/services/school/update",
+      findByName: "/airstudies/services/school/byname/:name",
     },
     student: {
       find: "/airstudies/services/student/list",
@@ -40,7 +41,8 @@ export class ConfigService {
       find: "/airstudies/services/property/list",
       findById:"/airstudies/services/property",
       new:"/airstudies/services/property/new",
-      update: "/airstudies/services/property/update"
+      update: "/airstudies/services/property/update",
+      findByName: "/airstudies/services/property/byname/:name",
     },
 
     contract: {

@@ -7,7 +7,9 @@
 <section class="dados col-md-12">
   <article class="row">
     <form #schoolForm="ngForm">
+
       <h4 class="col-md-12">Identification</h4>
+
       <div class="form-group col-md-6">
         <label for="inputNomeEscola">Name</label>
         <input type="text" class="form-control" id="inputNomeEscola" placeholder="Name" required
@@ -27,6 +29,7 @@
           Legal Document is required
         </div>
       </div>
+
       <div class="form-group col-md-3">
         <label for="inputDataRegistro">Register Date</label>
         <input type="date" class="form-control" id="inputDataRegistro" placeholder="Register Date" required
@@ -35,6 +38,7 @@
              class="alert alert-danger">
           Registration Date is required
         </div>
+        
       </div>
 
       <app-localization [addressLine1] = "school.addressLine1" [addressLine2] = "school.addressLine2"

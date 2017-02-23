@@ -2,7 +2,7 @@
 <hr>
 <form>
 
-  <div class="form-group col-md-4">
+  <div class="form-group col-md-3">
     <label for="inputNomEsc" class="dis">Name</label>
     <input type="text" class="form-control" id="inputNomEsc" placeholder="School name..."
            [(ngModel)]="school.name" name="name"
@@ -10,7 +10,7 @@
   </div>
 
 
-  <div class="form-group col-md-4">
+  <div class="form-group col-md-3">
     <label for="inputPlace" class="dis">Place</label>
     <input id="inputPlace" class="form-control" name="place"
            path-to-data="results" ng2-auto-complete display-property-name="formatted_address"
@@ -20,7 +20,7 @@
     />
   </div>
 
-  <div class="form-group col-md-4">
+  <div class="form-group col-md-3">
     <label for="inputLanguage"  class="dis">Language</label>
     <select class="form-control"  id="inputLanguage"
             [(ngModel)]="school.language" name="inputLanguage" title={{languages[0].label}}>
@@ -29,7 +29,7 @@
 
   </div>
 
-  <div class="form-group col-md-4">
+  <div class="form-group col-md-3">
     <label for="inputStatus"  class="dis">Status</label>
     <select class="form-control"  id="inputStatus"
             [(ngModel)]="school.status" name="inputStatus" title={{schoolStatus[0].label}}>
@@ -83,8 +83,13 @@
               <span *ngIf="schoolResult.active === 1">Active</span>
               <span *ngIf="schoolResult.active === 0">Inactive</span>
             </td>
-            <td class="text-center"><p data-placement="top" data-toggle="tooltip" title="Edit"><button (click)="onEdit(schoolResult.id)" class="btn btn-primary btn-xs" data-title="Edit" ><span class="glyphicon glyphicon-pencil"></span></button></p></td>
-            <td class="text-center"><p data-placement="top" data-toggle="tooltip" title="Delete"><button (click)="onDelete(schoolResult)" class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon glyphicon-trash"></span></button></p></td>
+            <td class="text-center"><p data-placement="top" data-toggle="tooltip" title="Edit">
+              <button (click)="onEdit(schoolResult.id)" class="btn btn-primary btn-xs" data-title="Edit" >
+              <span class="glyphicon glyphicon-pencil"></span></button></p></td>
+            
+            <td class="text-center"><p data-placement="top" data-toggle="tooltip" title="Delete">
+              <button (click)="onDelete(schoolResult)" class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" >
+              <span class="glyphicon glyphicon-trash"></span></button></p></td>
           </tr>
           </tbody>
 

@@ -38,6 +38,7 @@ import {PropertyService} from './services/property/property.service';
 import {ContractSearchComponent} from './contract/contract-search.component';
 import {ContractService} from './services/contract/contract.service';
 import { LoginAdminComponent } from './login/login-admin.component';
+import { ContractRegisterComponent } from './contract/contract-register.component';
 
 
 
@@ -53,7 +54,8 @@ import { LoginAdminComponent } from './login/login-admin.component';
     PropertySearchComponent,
     PropertyRegisterComponent,
     ContractSearchComponent,
-    LoginAdminComponent
+    LoginAdminComponent,
+    ContractRegisterComponent,
 
   ],
   imports: [

@@ -19,6 +19,7 @@ import {StudentRegisterComponent} from "./student/student-register.component";
 import {PropertySearchComponent} from "./property/property-search.component";
 import {PropertyRegisterComponent} from "./property/property-register.component";
 import {ContractSearchComponent} from "./contract/contract-search.component";
+import {ContractRegisterComponent} from "./contract/contract-register.component";
 
 const routes: Routes = [
     {path:"", redirectTo: "/main", pathMatch: "full"},
@@ -36,6 +37,7 @@ const routes: Routes = [
             {path: "propertysearch", component: PropertySearchComponent},
             {path: "propertyregister/:id", component: PropertyRegisterComponent},
             {path: "contractsearch", component: ContractSearchComponent},
+            {path: "contractregister/:id", component: ContractRegisterComponent}
         ]
 
     }

@@ -1,5 +1,7 @@
-import { Headers, Http }    from '@angular/http';
+import { Headers, Http,Response  }    from '@angular/http';
 import 'rxjs/add/operator/toPromise';
+import {Observable} from 'rxjs/Observable';
+
 import {ConfigService} from "../../config/config.service";
 
 export class BaseHttpService {
@@ -38,6 +40,11 @@ export class BaseHttpService {
           return {status: 2, message: error};
         });
     }
+  }
+
+  executeGetObservable(criteria: any): Observable<Response> {
+    let getUrl = this.config.url[this.entityName].find + "/" + JSON.stringify(criteria);
+    return this.http.get(getUrl, {headers: this.headers})
   }
 
   search(criteria: any): Promise<any> {
