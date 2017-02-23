@@ -6,6 +6,7 @@ export class ContractSearch {
     public city: string = null,
     public country: string = null,
     public state: string = null,
-    public status: string
+    public status: string = null,
+    public ownerName: string = null
     
     ){}}
