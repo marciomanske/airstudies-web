@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import {Component, Output, EventEmitter, Input} from '@angular/core';
 
 @Component({
     moduleId: module.id,
@@ -10,6 +10,8 @@ export class SearchButtonsComponent {
 
   @Output() search = new EventEmitter<any>();
   @Output() newRegister = new EventEmitter<any>();
+
+  @Input() newRegigerButtonVisible: boolean = true;
 
   onSearch() {
     this.search.emit();

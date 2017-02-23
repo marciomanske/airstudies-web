@@ -38,6 +38,7 @@ export class TagInputComponent implements ControlValueAccessor, OnDestroy, OnIni
   @Input() autocompleteSelectFirstItem: boolean = true;
   @Input() pasteSplitPattern: string = ',';
   @Input() placeholder: string = 'Add a tag';
+  @Input() disableAll: boolean = false;
   @Output('addTag') addTag: EventEmitter<string> = new EventEmitter<string>();
   @Output('removeTag') removeTag: EventEmitter<string> = new EventEmitter<string>();
 
@@ -74,6 +75,12 @@ export class TagInputComponent implements ControlValueAccessor, OnDestroy, OnIni
       });
     })
     .subscribe();
+
+    let ctrl = this.tagInputForm.get("tagInputField");
+    ctrl.enable();
+    if (this.disableAll) {
+      ctrl.disable();
+    }
   }
 
   onKeydown(event: KeyboardEvent): void {

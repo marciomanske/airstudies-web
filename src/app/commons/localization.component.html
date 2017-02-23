@@ -2,19 +2,19 @@
 <div class="form-group col-lg-6">
   <label for="inputAddress1">Address Line 1</label>
   <input type="text" class="form-control" id="inputAddress1" name="addressLine1" [(ngModel)]="addressLine1"
-  (change)="onChangeValues()"/>
+  (change)="onChangeValues()" [disabled]="disableFields"/>
 </div>
 <div class="form-group col-lg-6">
   <label for="inputAddress2">Address Line 2</label>
   <input type="text" class="form-control" id="inputAddress2" name="addressLine2" [(ngModel)]="addressLine2"
-         (change)="onChangeValues()"/>
+         (change)="onChangeValues()" [disabled]="disableFields"/>
 </div>
 <div class="form-group col-lg-6">
   <label for="inputCity">City</label>
   <input id="inputCity" class="form-control" name="city" [(ngModel)]="city"
          path-to-data="results" ng2-auto-complete display-property-name="formatted_address"
          min-chars="3" no-match-found-text="No city found" max-num-list="5" [source]="googleMapURL"
-         (valueChanged)="onCityChanged($event)"
+         (valueChanged)="onCityChanged($event)" [disabled]="disableFields"
   />
 </div>
 
@@ -30,5 +30,6 @@
 
 <div class="form-group col-lg-3">
   <label for="inputPostalCode">Postal Code</label>
-  <input (change)="onChangeValues()" type="text" class="form-control" id="inputPostalCode" [(ngModel)]="postalCode" name="postalCode"/>
+  <input (change)="onChangeValues()"  [disabled]="disableFields"
+         type="text" class="form-control" id="inputPostalCode" [(ngModel)]="postalCode" name="postalCode"/>
 </div>

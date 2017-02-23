@@ -20,6 +20,7 @@ export class LocalizationComponent {
   @Input() state: string = null;
   @Input() country: string = null;
   @Input() postalCode: string = null;
+  @Input() disableFields: boolean = false;
 
   @Output() localization: EventEmitter <Localization> =
     new EventEmitter();

@@ -6,7 +6,7 @@
   *ngFor="let tag of tagsList; let index = index">
 </rl-tag-input-item>
 <form [formGroup]="tagInputForm" class="ng2-tag-input-form">
-  <input
+  <input name="inputField" id="inputField"
     class="ng2-tag-input-field"
     type="text"
     formControlName="tagInputField"
