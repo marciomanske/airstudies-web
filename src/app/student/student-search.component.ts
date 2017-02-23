@@ -35,7 +35,7 @@ export class StudentSearchComponent extends BaseSerchComponent {
                 if (item.types.indexOf("locality") >= 0) {
                     this.studentSearch.city = item.long_name;
                 } else if (item.types.indexOf("administrative_area_level_1") >= 0) {
-                    this.studentSearch.state = item.long_name;
+                    this.studentSearch.state = item.short_name;
                 } else if (item.types.indexOf("country") >= 0) {
                     this.studentSearch.country = item.long_name;
                 }

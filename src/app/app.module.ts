@@ -1,9 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { Ng2AutoCompleteModule } from 'ng2-auto-complete';
-
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -39,7 +38,10 @@ import {ContractSearchComponent} from './contract/contract-search.component';
 import {ContractService} from './services/contract/contract.service';
 import { LoginAdminComponent } from './login/login-admin.component';
 import { ContractRegisterComponent } from './contract/contract-register.component';
-
+import {TagInputComponent} from "./commons/tags-input/tag-input/tag-input.component";
+import {TagInputItemComponent} from "./commons/tags-input/tag-input-item/tag-input-item.component";
+import {TagInputAutocompleteComponent} from "./commons/tags-input/tag-input-autocomplete/tag-input-autocomplete.component";
+import { PropertyAvailabilityComponent } from './availability/property-availability.component';
 
 
 @NgModule({
@@ -54,13 +56,13 @@ import { ContractRegisterComponent } from './contract/contract-register.componen
     PropertySearchComponent,
     PropertyRegisterComponent,
     ContractSearchComponent,
-    LoginAdminComponent,
     ContractRegisterComponent,
-
+    LoginAdminComponent, TagInputComponent, TagInputItemComponent, TagInputAutocompleteComponent,
+    PropertyAvailabilityComponent
   ],
   imports: [
     BrowserModule,
-    FormsModule,
+    FormsModule, ReactiveFormsModule,
     HttpModule, AppRoutingModule, Ng2AutoCompleteModule
 
   ],

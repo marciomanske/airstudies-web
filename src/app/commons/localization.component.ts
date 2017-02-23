@@ -20,6 +20,7 @@ export class LocalizationComponent {
   @Input() state: string = null;
   @Input() country: string = null;
   @Input() postalCode: string = null;
+  @Input() disableFields: boolean = false;
 
   @Output() localization: EventEmitter <Localization> =
     new EventEmitter();
@@ -37,7 +38,7 @@ export class LocalizationComponent {
         if (item.types.indexOf("locality") >= 0) {
           this.city = item.long_name;
         } else if (item.types.indexOf("administrative_area_level_1") >= 0) {
-          this.state = item.long_name;
+          this.state = item.short_name;
         } else if (item.types.indexOf("country") >= 0) {
           this.country = item.long_name;
         }

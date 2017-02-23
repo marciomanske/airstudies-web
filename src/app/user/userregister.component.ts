@@ -30,7 +30,7 @@ export class UserRegisterComponent implements OnInit {
                     if (res.status === 1) {
                         this.user = res.result;
                     } else {
-                        alert(res.result.message);
+                        this.registerErrorMessage = res.message;
                     }
                 }
             );

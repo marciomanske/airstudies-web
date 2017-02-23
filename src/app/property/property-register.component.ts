@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, Input} from '@angular/core';
 import {Property} from "../dto/Property";
 import {ConfigService} from "../config/config.service";
 import {Localization} from "../dto/Localization";
@@ -8,10 +8,13 @@ import {RoomType} from "../dto/RoomType";
 import {Router, ActivatedRoute} from "@angular/router";
 
 @Component({
+    selector: 'app-property-register',
     templateUrl: './property-register.component.html',
     styleUrls: ['../customcss/formstyle.css']
 })
 export class PropertyRegisterComponent implements OnInit {
+
+    propertyIdFromModal: number = null;
 
     constructor(private helper: HelperService, private config: ConfigService,
                 private router: Router, private propertyService: PropertyService, private route: ActivatedRoute) {
@@ -27,6 +30,9 @@ export class PropertyRegisterComponent implements OnInit {
     suite: RoomType = new RoomType("Suites", "SUITE");
     single: RoomType = new RoomType("Singles", "SINGLE");
     shared: RoomType = new RoomType("Shareds", "SHARED");
+    pets = [];
+    otherTransports = [];
+    otherFoodTypes = [];
     roomTypeList = [
         this.suite, this.single, this.shared
     ];
@@ -40,7 +46,7 @@ export class PropertyRegisterComponent implements OnInit {
         for (let roomType of this.roomTypeList) {
             let tempSelected = roomTypes.filter(
                 sel => sel.label === roomType.label
-            )
+            );
             if (tempSelected.length > 0) {
                 roomType.amount = tempSelected[0].amount;
                 this.selectedRoomTypes.push(roomType);
@@ -49,9 +55,30 @@ export class PropertyRegisterComponent implements OnInit {
     }
 
 
-    ngOnInit() {
+    initProperty() {
+        this.property = new Property();
+        this.pets = [];
+        this.otherTransports = [];
+        this.otherFoodTypes = [];
 
-        let propertyId = this.route.snapshot.params['id'];
+    }
+
+
+    loadData(propertyId: number) {
+        this.propertyIdFromModal = propertyId;
+        this.ngOnInit();
+    }
+
+    ngOnInit() {
+        this.initProperty();
+        let propertyId = 0;
+        if (this.propertyIdFromModal === null) {
+            propertyId = this.route.snapshot.params['id'];
+        } else {
+            propertyId = this.propertyIdFromModal;
+        }
+
+
 
         if (propertyId > 0) {
             this.propertyService.searchById(propertyId).then(
@@ -75,6 +102,15 @@ export class PropertyRegisterComponent implements OnInit {
                         if (this.property.allowence) {
                             this.selectedAllowences = JSON.parse(this.property.allowence);
                         }
+                        if (this.property.pets) {
+                            this.pets = JSON.parse(this.property.pets);
+                        }
+                        if (this.property.otherTransports) {
+                            this.otherTransports = JSON.parse(this.property.otherTransports);
+                        }
+                        if (this.property.otherFoodTypes) {
+                            this.otherFoodTypes = JSON.parse(this.property.otherFoodTypes);
+                        }
                     }
                     else {
                         this.registerErrorMessage = res.result.message;
@@ -82,8 +118,6 @@ export class PropertyRegisterComponent implements OnInit {
                 }
             );
 
-        } else {
-            this.property = new Property();
         }
 
     }
@@ -151,7 +185,7 @@ export class PropertyRegisterComponent implements OnInit {
 
         let tempSelected = this.selectedRoomTypes.filter(
             sel => sel.label === roomType.label
-        )
+        );
         return tempSelected.length > 0;
 
     }
@@ -175,6 +209,10 @@ export class PropertyRegisterComponent implements OnInit {
 
     onSave(moveBack: boolean, form: any) {
         this.property.roomTypes = JSON.stringify(this.selectedRoomTypes);
+        this.property.pets =  JSON.stringify(this.pets);
+        this.property.otherTransports =  JSON.stringify(this.otherTransports);
+        this.property.otherFoodTypes =  JSON.stringify(this.otherFoodTypes);
+
         let fcn = "new";
         if (this.property.id !== null) {
             fcn = "update";
@@ -195,7 +233,7 @@ export class PropertyRegisterComponent implements OnInit {
     }
 
     clearFields() {
-        this.property = new Property();
+        this.initProperty();
     }
 
     onSaveAndNew(form: any) {

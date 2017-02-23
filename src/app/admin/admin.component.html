@@ -19,21 +19,26 @@
         <ul class="nav navbar-nav">
           <!--<li class="active"><a href="#">Contas <span class="sr-only">(current)</span></a></li>-->
           <li><a href="#">Account</a></li>
-          <li><a href="#">Availability</a></li>
+
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Operations <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a routerLink="/admin/propertyavailability" routerLinkActive="active">Property Availability</a></li>
+            </ul>
+          </li>
           <li><a href="#">Reports</a></li>
           <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Registers <span class="caret"></span></a>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Records <span class="caret"></span></a>
             <ul class="dropdown-menu">
-              <li><a href="cadAtrDin.html">Dynamic Attributes</a></li>
+              <!--<li><a href="cadAtrDin.html">Dynamic Attributes</a></li> -->
               <li><a routerLink="/admin/usersearch" routerLinkActive="active">Users</a></li>
               <li><a routerLink="/admin/schoolsearch" routerLinkActive="active">Schools</a></li>
-              <li><a href="cadPreEscAlu.html">Price Rules</a></li>
-              <li><a href="cadPrefB.html">Basic Preferences</a></li>
-              <li><a href="cadGruCrit.html">Criteria Groups</a></li>
+              <!--<li><a href="cadPreEscAlu.html">Price Rules</a></li> -->
+              <!--<li><a href="cadPrefB.html">Basic Preferences</a></li> -->
+              <!--<li><a href="cadGruCrit.html">Criteria Groups</a></li>-->
               <li><a routerLink="/admin/propertysearch" routerLinkActive="active">Properties</a></li>
               <li><a routerLink="/admin/studentsearch" routerLinkActive="active">Students</a></li>
               <li><a routerLink="/admin/contractsearch" routerLinkActive="active">Contracts</a></li>
-              
             </ul>
           </li>
         </ul>

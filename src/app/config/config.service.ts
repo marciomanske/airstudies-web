@@ -8,7 +8,6 @@ import { UserType } from '../dto/UserType';
 export class ConfigService {
 
   private baseAddressLocal: string = "http://localhost:3500";
-  //private baseAddressAWS: string = "http://192.168.0.102:3500";
   private baseAddressAWS: string = "http://104.236.9.163:3500";
 
   url = {
