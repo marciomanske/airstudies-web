@@ -4,42 +4,35 @@
 
 
   <div class="form-group col-md-4">
-    <label for="inputNomProp" class="dis">School</label>
-    <input type="text" class="form-control" id="inputSchoolName" placeholder="School Name..."
+    <label for="schoolName" class="dis">School</label>
+    <input type="text" class="form-control" id="schoolName" placeholder="School Name..."
     [(ngModel)]="contractSearch.schoolName" name="school"
     #name="ngModel"/>
   </div>
 
   <div class="form-group col-md-4">
-    <label for="place" class="dis">School Location</label>
-    <input id="place" class="form-control" name="place"
+    <label for="schoolLocation" class="dis">School Location</label>
+    <input id="schoolLocation" class="form-control" name="schoolLocation"
            path-to-data="results" ng2-auto-complete display-property-name="formatted_address"
            min-chars="3" no-match-found-text="No city found" max-num-list="5" 
            [source]="config.url.googleMapURL" (valueChanged)="onPlaceChanged($event)"/>
   </div>
 
   <div class="form-group col-md-4">
-    <label for="inputNomProp" class="dis">Property</label>
-    <input type="text" class="form-control" id="inputPropertyName" placeholder="Property Name..."
-    [(ngModel)]="contractSearch.ownerName" name="property"
+    <label for="ownerName" class="dis">Property Owner Name</label>
+    <input type="text" class="form-control" id="ownerName" placeholder="Property Owner Name..."
+    [(ngModel)]="contractSearch.ownerName" name="ownerName"
     #name="ngModel"/>
   </div>
         
   <div class="form-group col-md-4">
-    <label for="place" class="dis">Property Location</label>
-    <input id="place" class="form-control" name="place"
+    <label for="propertyLocation" class="dis">Property Location</label>
+    <input id="propertyLocation" class="form-control" name="propertyLocation"
            path-to-data="results" ng2-auto-complete display-property-name="formatted_address"
            min-chars="3" no-match-found-text="No city found" max-num-list="5" 
            [source]="config.url.googleMapURL" (valueChanged)="onPlaceChanged($event)"/>
   </div>
         
- <!--<div class="form-group col-md-4">
-    <label for="inputNomProp" class="dis">Contract</label>
-    <input type="text" class="form-control" id="contract" placeholder="Contract..."
-    [(ngModel)]="contractSearch.contract" name="contract"
-    #name="ngModel"/>
-  </div> -->
-
   <div class="form-group col-md-4">
     <label for="inputStatus"  class="dis">Status</label>
     <select class="form-control"  id="inputStatus"
