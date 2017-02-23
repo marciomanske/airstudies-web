@@ -2,10 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ConfigService} from "../config/config.service";
 import {Contract} from "../dto/Contract";
 import {ContractService} from "../services/contract/contract.service";
-import {SchoolService} from "../services/school/school.service";
 import {Router, ActivatedRoute} from "@angular/router";
-import {HelperService} from "../services/helper/helper.service";
-
 
 @Component({
   selector: 'app-contract-register',
@@ -14,8 +11,8 @@ import {HelperService} from "../services/helper/helper.service";
 })
 export class ContractRegisterComponent implements OnInit {
 
-  constructor(private schoolService: SchoolService, private config: ConfigService,private contractService: ContractService, 
-              private router: Router,private route: ActivatedRoute, private helper: HelperService) { }
+  constructor(private config: ConfigService,private contractService: ContractService,
+              private router: Router,private route: ActivatedRoute) { }
   
 
   contract: Contract = new Contract();
