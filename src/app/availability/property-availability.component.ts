@@ -101,10 +101,10 @@ export class PropertyAvailabilityComponent extends BaseSerchComponent implements
                     like: true
                 });
         }
-        if (this.contractSearch.school) {
+        if (this.contractSearch.schoolName) {
             params.push(
                 {
-                    value: this.contractSearch.school,
+                    value: this.contractSearch.schoolName,
                     operation: 4,
                     attributeName: "school.name",
                     like: true

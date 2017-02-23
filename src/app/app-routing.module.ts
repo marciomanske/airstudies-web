@@ -38,7 +38,7 @@ const routes: Routes = [
             {path: "propertysearch", component: PropertySearchComponent},
             {path: "propertyregister/:id", component: PropertyRegisterComponent},
             {path: "contractsearch", component: ContractSearchComponent},
-            {path: "contractregister/:id", component: ContractRegisterComponent}
+            {path: "contractregister/:id", component: ContractRegisterComponent},
             {path: "propertyavailability", component: PropertyAvailabilityComponent}
         ]
 
