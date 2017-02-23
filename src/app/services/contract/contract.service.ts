@@ -8,6 +8,7 @@ import {Contract} from "../../dto/Contract";
 export class ContractService extends BaseHttpService {
 
   constructor(protected http: Http, protected config: ConfigService) { 
-  super (http, "contract", config);
+    super (http, "contract", config);
   }
+ 
 }

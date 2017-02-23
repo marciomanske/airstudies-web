@@ -19,6 +19,7 @@ import {StudentRegisterComponent} from "./student/student-register.component";
 import {PropertySearchComponent} from "./property/property-search.component";
 import {PropertyRegisterComponent} from "./property/property-register.component";
 import {ContractSearchComponent} from "./contract/contract-search.component";
+import {ContractRegisterComponent} from "./contract/contract-register.component";
 import {PropertyAvailabilityComponent} from "./availability/property-availability.component";
 
 const routes: Routes = [
@@ -37,6 +38,7 @@ const routes: Routes = [
             {path: "propertysearch", component: PropertySearchComponent},
             {path: "propertyregister/:id", component: PropertyRegisterComponent},
             {path: "contractsearch", component: ContractSearchComponent},
+            {path: "contractregister/:id", component: ContractRegisterComponent}
             {path: "propertyavailability", component: PropertyAvailabilityComponent}
         ]
 

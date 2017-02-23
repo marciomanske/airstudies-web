@@ -2,53 +2,90 @@
 <hr>
 <form>
 
-  <div class="form-group col-md-4">
-    <label for="inputNomProp" class="dis">Contract</label>
-    <input type="text" class="form-control" id="contract" placeholder="Contract..."
-    [(ngModel)]="contractSearch.contract" name="contract"
-    #name="ngModel"/>
-  </div>
 
   <div class="form-group col-md-4">
     <label for="inputNomProp" class="dis">School</label>
     <input type="text" class="form-control" id="inputSchoolName" placeholder="School Name..."
-    [(ngModel)]="contractSearch.school" name="school"
+    [(ngModel)]="contractSearch.schoolName" name="school"
     #name="ngModel"/>
   </div>
 
   <div class="form-group col-md-4">
-    <label for="place" class="dis">Place</label>
+    <label for="place" class="dis">School Location</label>
+    <input id="place" class="form-control" name="place"
+           path-to-data="results" ng2-auto-complete display-property-name="formatted_address"
+           min-chars="3" no-match-found-text="No city found" max-num-list="5" 
+           [source]="config.url.googleMapURL" (valueChanged)="onPlaceChanged($event)"/>
+  </div>
+
+  <div class="form-group col-md-4">
+    <label for="inputNomProp" class="dis">Property</label>
+    <input type="text" class="form-control" id="inputPropertyName" placeholder="Property Name..."
+    [(ngModel)]="contractSearch.ownerName" name="property"
+    #name="ngModel"/>
+  </div>
+        
+  <div class="form-group col-md-4">
+    <label for="place" class="dis">Property Location</label>
     <input id="place" class="form-control" name="place"
            path-to-data="results" ng2-auto-complete display-property-name="formatted_address"
            min-chars="3" no-match-found-text="No city found" max-num-list="5" 
            [source]="config.url.googleMapURL" (valueChanged)="onPlaceChanged($event)"/>
   </div>
         
+ <!--<div class="form-group col-md-4">
+    <label for="inputNomProp" class="dis">Contract</label>
+    <input type="text" class="form-control" id="contract" placeholder="Contract..."
+    [(ngModel)]="contractSearch.contract" name="contract"
+    #name="ngModel"/>
+  </div> -->
+
+  <div class="form-group col-md-4">
+    <label for="inputStatus"  class="dis">Status</label>
+    <select class="form-control"  id="inputStatus"
+            [(ngModel)]="contractSearch.status" name="inputStatus" title={{contractStatus[0].label}}>
+      <option *ngFor="let status of contractStatus" [value]="status.value">{{status.label}}</option>
+    </select>
+  </div>
+ 
+
   <app-searchbuttons (search)="onSearch()" (newRegister)="onNewRegister()"></app-searchbuttons> 
 </form>
 
+<div class="container">
+  <div class="alert alert-warning" role="alert" *ngIf="showNoResultsFound">
+    No result found for the specified criteria
+  </div>
+  <div class="alert alert-danger" role="alert" *ngIf="searchErrorMessage !== null">
+      {{searchErrorMessage}}
+  </div>
 
-        
+  <hr>
+  <div class="row">    
   <div class="col-md-12">
     <h4>Results</h4>
       <div class="table-responsive">
         <table id="mytable" class="table table-bordred table-striped">
           <thead>
-            <th><input type="checkbox" id="checkall" /></th>
-            <th>Contract</th>
+            <tr>
+            
             <th>School</th>
-            <th>Cidade</th>
-            <th>Country</th>
+            <th>School Location</th>
+            <th>Property Owner</th>
+            <th>Property Location</th>
+            <th>Status</th>
             <th class="text-center">Edit</th>
             <th class="text-center">Delete</th>
+            </tr>
           </thead>
           <tbody>
             <tr>
             <tr *ngFor="let contractResult of searchResult">
-            <td>{{contractResult.contract}}</td>
-            <td>{{contractResult.school}}</td>
-            <td>{{contractResult.city}}</td>
-            <td>{{contractResult.country}}</td>
+            
+            <td>{{contractResult.school.name}}</td>
+            <td>{{getLocation(contractResult.school)}}</td>
+            <td>{{contractResult.property.ownerName}}</td>
+            <td>{{getLocation(contractResult.property)}}</td>
             <td>
               <span *ngIf="contractResult.active === 1">Active</span>
               <span *ngIf="contractResult.active === 0">Inactive</span>
@@ -63,6 +100,10 @@
             </tr>
           </tbody>
         </table>
+      </div>
+    </div>
+  </div>
+</div>
                             
 
 <app-deletedialog (confirmDelete)="onConfirmDelete()"></app-deletedialog>

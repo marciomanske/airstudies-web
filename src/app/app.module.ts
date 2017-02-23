@@ -37,6 +37,7 @@ import {PropertyService} from './services/property/property.service';
 import {ContractSearchComponent} from './contract/contract-search.component';
 import {ContractService} from './services/contract/contract.service';
 import { LoginAdminComponent } from './login/login-admin.component';
+import { ContractRegisterComponent } from './contract/contract-register.component';
 import {TagInputComponent} from "./commons/tags-input/tag-input/tag-input.component";
 import {TagInputItemComponent} from "./commons/tags-input/tag-input-item/tag-input-item.component";
 import {TagInputAutocompleteComponent} from "./commons/tags-input/tag-input-autocomplete/tag-input-autocomplete.component";
@@ -55,6 +56,7 @@ import { PropertyAvailabilityComponent } from './availability/property-availabil
     PropertySearchComponent,
     PropertyRegisterComponent,
     ContractSearchComponent,
+    ContractRegisterComponent,
     LoginAdminComponent, TagInputComponent, TagInputItemComponent, TagInputAutocompleteComponent,
     PropertyAvailabilityComponent
   ],

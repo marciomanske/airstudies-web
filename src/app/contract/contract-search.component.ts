@@ -4,6 +4,10 @@ import {Router} from "@angular/router";
 import {ContractService} from "../services/contract/contract.service";
 import {ContractSearch} from "../dto/ContractSearch";
 import {Contract} from "../dto/Contract";
+import {Status} from "../dto/Status";
+import {BaseSerchComponent} from "../basecomponent/base-search-component";
+
+
 
 
 @Component({
@@ -11,15 +15,18 @@ import {Contract} from "../dto/Contract";
   templateUrl: './contract-search.component.html',
   styleUrls: ['../customcss/formstyle.css']
 })
-export class ContractSearchComponent implements OnInit {
+
+export class ContractSearchComponent  extends BaseSerchComponent implements OnInit{
 
   constructor(public config: ConfigService, private contractService: ContractService,
-              private router: Router){}
+              private router: Router){
+                  super();
+              }
 
-  contractSearch = new ContractSearch (null, null, null, null, null, null);
-  searchResult = [];
-  showNoResultsFound: boolean = false;
+  contractSearch = new ContractSearch (null, null, null, null, null, null,null,null,null);
+
   contractToDelete = new Contract();
+  contractStatus: Status[] = this.config.statusList;
 
 
   ngOnInit() {
@@ -49,12 +56,19 @@ export class ContractSearchComponent implements OnInit {
         }  
 
   onEdit(id: number) {
-            this.router.navigate(["/admin/studentregister/"+id]);
+            this.router.navigate(["/admin/contractregister/"+id]);
         }   
 
   onDelete(contract: Contract) {
     this.contractToDelete = contract;
         }
+
+  getLocation(data: any): string {
+      if (data.city != null) {
+          return data.city + ", " + data.country;
+      }
+      return null;
+  }
 
   onSearch() {
             let params = [];
@@ -62,11 +76,20 @@ export class ContractSearchComponent implements OnInit {
             this.contractSearch.state = null;
             this.contractSearch.country = null;
 
-            if (this.contractSearch.contract) {
+
+           if (this.contractSearch.ownerName) {
             params.push(
-                {value: this.contractSearch.contract,
+                {value: this.contractSearch.ownerName,
                 operation: 4,
-                attributeName: "contract",
+                attributeName: "property.ownerName",
+                like: true});
+           }
+
+           if (this.contractSearch.schoolName) {
+            params.push(
+                {value: this.contractSearch.schoolName,
+                operation: 4,
+                attributeName: "school.name",
                 like: true});
            }
 
@@ -79,6 +102,7 @@ export class ContractSearchComponent implements OnInit {
                 attributeName: "active",
                 like: false});
             }
+
 
             if (this.contractSearch.city) {
             params.push(
@@ -109,6 +133,8 @@ export class ContractSearchComponent implements OnInit {
                 if (res.status === 1) {
                     this.searchResult = res.result;
                     this.showNoResultsFound = this.searchResult.length === 0;
+                } else {
+                    this.searchErrorMessage = "Error executing search";
                 }
             });
     }
@@ -118,9 +144,11 @@ export class ContractSearchComponent implements OnInit {
                 let localContract = this.contractToDelete;
                 this.contractToDelete = null;
                 if (localContract.active === 0) {
-                    alert("Student is already inactive");
+                    alert("Contract is already inactive");
                    }else {
                     localContract.active = 0;
+                    localContract.schoolId = localContract.school.id;
+                    localContract.propertyId = localContract.property.id;
                     this.contractService.update(localContract).then(
                         res => {
                             if (res.status === 1) {

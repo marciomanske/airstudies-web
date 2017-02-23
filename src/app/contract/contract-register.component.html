@@ -1,0 +1,126 @@
+<h3 class="text-center">Contract</h3>
+<hr>
+<div class="alert alert-danger" role="alert" *ngIf="registerErrorMessage !== null">
+  {{registerErrorMessage}}
+</div>
+
+<section class="dados col-md-12">
+    <article class="row">
+       <form #contractForm="ngForm">
+        <div class="col-md-6"> 
+            
+        
+        <div class="form-group col-md-12">
+            <label for="school" class="dis">School Name</label>
+            <input id="school" class="form-control" required name="school" 
+             [(ngModel)]="schoolName"
+             path-to-data="result" ng2-auto-complete display-property-name="name"
+             min-chars="3" no-match-found-text="No school found" max-num-list="5" 
+             [source]="urlSchoolByName" (valueChanged)="onSchoolChanged($event)">
+        </div>
+
+                    
+        <div class="form-group col-md-12">
+            <label for="property" class="dis">Property Owner Name</label>
+            <input id="property" class="form-control" name="property" 
+            required [(ngModel)]="propertyOwnerName"
+            path-to-data="result" ng2-auto-complete display-property-name="ownerName"
+            min-chars="3" no-match-found-text="No property found" max-num-list="5" 
+            [source]="urlPropertyByName" (valueChanged)="onPropertyChanged($event)">
+        </div>
+
+                    
+        <div class="form-group col-md-5">
+            <label for="inputDataRegistro">Association Date</label>
+            <input type="date" class="form-control" id="inputDataRegistro" placeholder="Association Date" 
+            required [(ngModel)]="contract.startDate" name="startDate" #startDate="ngModel"/>
+        </div>
+
+
+        <div class="form-group col-md-5">
+            <label for="dataTAs" >End Date</label>
+                <input type="date" class="form-control" id="endDate" 
+                       [(ngModel)]="contract.endDate" name="endDate"/>
+        </div>
+
+        <div class="form-group col-md-2">
+        <label></label>
+            <label>
+                <input type="checkbox" name="active"
+                       [checked]="contract.active === 1"
+                       (change)="$event.target.checked?contract.active = 1:contract.active = 0"/> Active
+            </label>
+        </div>
+
+        <div class="form-group col-md-12">
+                <label for="observation">Observation</label>
+                <textarea class="form-control" rows="6" id="observation"
+                          [(ngModel)]="contract.observation" name="observation"></textarea>
+        </div>
+
+
+
+   </div>
+
+
+
+
+                                        <!-- BOX ROOM TYPE -->
+    <div class="col-md-6"> 
+        <section class="card"> 
+        <h4 class="text-center">Prices</h4>
+        <article>
+        <span>Room type</span>
+        
+            <div class=" col-md-4">
+                <label for="qTipoS">Single</label>
+                <input type="number" class="form-control r" id="single" placeholder="US$"
+                       [(ngModel)]="single" name="single"/>
+            </div>
+    
+            <div class=" col-md-4">
+                <label for="qTipoC">Shared</label>
+                    <div class="input-group">
+                        <input type="number" class="form-control r" id="shared" placeholder="US$"
+                               [(ngModel)]="shared" name="shared"/>
+                    </div>
+            </div>
+
+            <div class=" col-md-4">
+                <label for="qTipoSu">Suite</label>
+                    <div class="input-group">
+                        <input type="number" class="form-control r" id="suite" placeholder="US$"
+                               [(ngModel)]="suite" name="suite"/>
+                    </div>
+            </div>
+        </article>
+        
+        <article class="pos">
+            <div class=" col-md-6">
+                    <div class="input-group">
+                        <label for="hComR">With Meal</label>
+                        <input type="number" class="form-control r" id="meal" placeholder="US$"
+                              [(ngModel)]="meal" name="meal"/>
+                    </div>
+             </div>
+
+            <div class=" col-md-6">
+                    <div class="input-group">
+                        <label for="hComX">Facilities</label>
+                            <input type="number" class="form-control r" id="facilities" placeholder="US$"
+                                   [(ngModel)]="facilities" name="facilities"/>
+                    </div>
+            </div>      
+         </article>
+         
+
+          </section>
+         </div>     
+            <div class="col-lg-12">
+                <hr>
+                <app-registerbuttons [validForm]="contractForm.form.valid"
+                (save)="onSave(true, contractForm)" (saveAndNew)="onSaveAndNew(contractForm)"></app-registerbuttons>
+            </div>
+        </form>
+    </article> 
+</section> 

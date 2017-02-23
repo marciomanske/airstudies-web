@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {  Http }    from '@angular/http';
+import {  Http  }    from '@angular/http';
 import {BaseHttpService} from "../base/base-http.service";
 import {ConfigService} from "../../config/config.service";
 
@@ -10,4 +10,5 @@ export class SchoolService extends BaseHttpService {
     super(http, "school", config);
   }
 
+  
 }
