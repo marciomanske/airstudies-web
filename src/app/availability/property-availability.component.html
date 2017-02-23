@@ -71,10 +71,24 @@
               <span *ngIf="result.active === 1">Active</span>
               <span *ngIf="result.active === 0">Inactive</span>
             </td>
+            <!--
+            <td class="text-center"><p data-placement="top" data-toggle="tooltip" title="Add Reservation"><button
+                    (click)="propertyRegister.loadData(result.property.id)"
+                    class="btn btn-primary btn-xs" data-title="Add Reservation" data-toggle="modal" data-target="#addReservation">
+              <span class="glyphicon glyphicon-plus-sign"></span></button></p></td>
             <td class="text-center"><p data-placement="top" data-toggle="tooltip" title="Property Details"><button
                     (click)="propertyRegister.loadData(result.property.id)"
                     class="btn btn-primary btn-xs" data-title="Property Details" data-toggle="modal" data-target="#viewDetails">
-              <span class="glyphicon glyphicon-eye-open"></span></button></p></td>
+              <span class="glyphicon glyphicon-eye-open"></span></button></p></td> -->
+            <td class="text-center">
+              <button
+                    (click)="propertyRegister.loadData(result.property.id)" title="Add Reservation"
+                    class="btn btn-primary btn-xs" data-toggle="modal" data-target="#addReservation">
+              <span class="glyphicon glyphicon-plus-sign"></span></button>
+            <button
+                    (click)="propertyRegister.loadData(result.property.id)"
+                    class="btn btn-primary btn-xs" title="Property Details" data-toggle="modal" data-target="#viewDetails">
+              <span class="glyphicon glyphicon-eye-open"></span></button></td>
           </tr>
           </tbody>
 
