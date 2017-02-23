@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, Input} from '@angular/core';
 import {Property} from "../dto/Property";
 import {ConfigService} from "../config/config.service";
 import {Localization} from "../dto/Localization";
@@ -8,10 +8,13 @@ import {RoomType} from "../dto/RoomType";
 import {Router, ActivatedRoute} from "@angular/router";
 
 @Component({
+    selector: 'app-property-register',
     templateUrl: './property-register.component.html',
     styleUrls: ['../customcss/formstyle.css']
 })
 export class PropertyRegisterComponent implements OnInit {
+
+    propertyIdFromModal: number = null;
 
     constructor(private helper: HelperService, private config: ConfigService,
                 private router: Router, private propertyService: PropertyService, private route: ActivatedRoute) {
@@ -60,9 +63,22 @@ export class PropertyRegisterComponent implements OnInit {
 
     }
 
+
+    loadData(propertyId: number) {
+        this.propertyIdFromModal = propertyId;
+        this.ngOnInit();
+    }
+
     ngOnInit() {
         this.initProperty();
-        let propertyId = this.route.snapshot.params['id'];
+        let propertyId = 0;
+        if (this.propertyIdFromModal === null) {
+            propertyId = this.route.snapshot.params['id'];
+        } else {
+            propertyId = this.propertyIdFromModal;
+        }
+
+
 
         if (propertyId > 0) {
             this.propertyService.searchById(propertyId).then(

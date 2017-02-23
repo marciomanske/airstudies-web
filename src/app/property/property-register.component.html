@@ -1,6 +1,6 @@
-<h3 class="text-center">Property</h3>
-<hr>
-<div class="alert alert-danger" role="alert" *ngIf="registerErrorMessage !== null">
+<h3 *ngIf="propertyIdFromModal === null" class="text-center">Property</h3>
+<hr *ngIf="propertyIdFromModal === null">
+<div class="alert alert-danger" role="alert" *ngIf="propertyIdFromModal === null && registerErrorMessage !== null">
   {{registerErrorMessage}}
 </div>
 
@@ -13,26 +13,16 @@
       <div class="form-group col-md-6">
         <label for="inputNomeProprietario">Owner Name</label>
         <input type="text" class="form-control" id="inputNomeProprietario" placeholder="Owner Name" 
-        required name="name" [(ngModel)]="property.ownerName"
+        required name="name" [(ngModel)]="property.ownerName" [disabled]="propertyIdFromModal !== null"
           #name="ngModel" />
         <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
           Owner name is required
         </div>
       </div>
-<!--
-      <div class="form-group col-md-3">
-        <label for="inputRegistro">Owner Legal Document</label>
-        <input type="text" class="form-control" id="inputRegistro" placeholder="Document Number"
-         required #document="ngModel" [(ngModel)]="property.ownerDocument"
-          name="ownerDocument" />
-        <div [hidden]="document.valid || document.pristine" class="alert alert-danger">
-          Document is required
-        </div>
-      </div>           -->
 
       <div class="form-group col-md-3">
         <label for="inputPlace" >Owner Origins</label>
-        <input id="inputPlace" class="form-control" path-to-data="results" 
+        <input id="inputPlace" class="form-control" path-to-data="results"  [disabled]="propertyIdFromModal !== null"
           ng2-auto-complete display-property-name="formatted_address"
           min-chars="3" no-match-found-text="No city found" max-num-list="5" 
           name="ownerCountry" [(ngModel)]="property.ownerCountry"
@@ -43,7 +33,7 @@
 
       <div class="form-group col-md-3">
         <label for="language">Mother tongue</label>
-        <input id="language" class="form-control" name="language" 
+        <input id="language" class="form-control" name="language"  [disabled]="propertyIdFromModal !== null"
         ng2-auto-complete display-property-name="name" 
          no-match-found-text="No language found"max-num-list="5" 
         [source]="config.worldLanguages" (valueChanged)="onLanguageChange($event)"
@@ -53,21 +43,21 @@
 
       <div class="form-group col-md-6">
         <label for="propertyEmail">Email</label>
-        <input type="email" class="form-control" id="propertyEmail" placeholder="Email" 
+        <input type="email" class="form-control" id="propertyEmail" placeholder="Email"  [disabled]="propertyIdFromModal !== null"
         [(ngModel)]="property.ownerEmail" name="contactEmail"
         />
       </div>
 
       <div class="form-group col-md-3">
         <label for="contactPhone">Phone</label>
-        <input type="tel" class="form-control" id="contactPhone" placeholder="Phone number" 
+        <input type="tel" class="form-control" id="contactPhone" placeholder="Phone number" [disabled]="propertyIdFromModal !== null"
         [(ngModel)]="property.ownerPhone" name="contactPhone"
         />
       </div>
 
       <div class="form-group col-lg-3">
         <label for="inputType">Property Type</label>
-        <select class="form-control"  id="inputType"
+        <select class="form-control"  id="inputType" [disabled]="propertyIdFromModal !== null"
                 [(ngModel)]="property.propertyType" name="inputType" required #type="ngModel">
           <option *ngFor="let type of propertyTypes" [value]="type.value">{{type.label}}</option>
         </select>
@@ -80,7 +70,7 @@
       <div class="form-group col-md-1">
         <label></label>
         <label>
-          <input type="checkbox" name="active"
+          <input type="checkbox" name="active" [disabled]="propertyIdFromModal !== null"
                  [checked]="property.active === 1"
                  (change)="$event.target.checked?property.active = 1:property.active = 0"
           /> Active
@@ -88,9 +78,9 @@
       </div>
       
 
-      <app-localization [addressLine1]="property.addressLine1" [addressLine2]="property.addressLine2" 
-      [city]="property.city" [state]="property.state"
-        [country]="property.country" [postalCode]="property.postalCode" 
+      <app-localization [disableFields]="propertyIdFromModal !== null" [addressLine1]="property.addressLine1" [addressLine2]="property.addressLine2"
+              [city]="property.city" [state]="property.state"
+        [country]="property.country" [postalCode]="property.postalCode"
         (localization)="onChangeLocalization($event)">
       </app-localization>
 
@@ -102,13 +92,13 @@
           <div class="col-md-4">
             <div class="input-group">
               <span class="input-group-addon">
-                  <input type="checkbox" 
+                  <input type="checkbox" [disabled]="propertyIdFromModal !== null"
                   [checked]="isRoomTypeChecked(suite)"
                   (click)="onRoomTypeClick(suite)"> 
                   {{suite.label}}
               </span>
               <input type="number" class="form-control" aria-label="..." placeholder="# of Suites"
-              [required] = "isRoomTypeChecked(suite) == 1"
+              [required] = "isRoomTypeChecked(suite) == 1" [disabled]="propertyIdFromModal !== null"
               [disabled]="!isRoomTypeChecked(suite)"
               [(ngModel)]="suite.amount"
               name="suiteAmount"/>
@@ -118,14 +108,14 @@
           <div class="col-md-4">
             <div class="input-group">
               <span class="input-group-addon">
-                  <input type="checkbox" 
+                  <input type="checkbox" readonly="propertyIdFromModal !== null"
                   [checked]="isRoomTypeChecked(single)"
                   (click)="onRoomTypeClick(single)">
                   {{single.label}}
               </span>
               <input type="text" class="form-control" aria-label="..." placeholder="# of Singles"
               [required] = "isRoomTypeChecked(single) == 1"
-              [disabled]="!isRoomTypeChecked(single)"
+              [disabled]="propertyIdFromModal !== null || !isRoomTypeChecked(single)"
               [(ngModel)]="single.amount"
               name="singleAmount"
               />
@@ -135,14 +125,14 @@
           <div class="col-md-4">
             <div class="input-group">
               <span class="input-group-addon">
-                  <input type="checkbox" 
+                  <input type="checkbox"  [disabled]="propertyIdFromModal !== null"
                   [checked]="isRoomTypeChecked(shared)"
                   (click)="onRoomTypeClick(shared)">
                   {{shared.label}}
               </span>
               <input type="text" class="form-control" aria-label="..." placeholder="# of Shared"
               [required] = "isRoomTypeChecked(shared) == 1"
-              [disabled]="!isRoomTypeChecked(shared)"
+              [disabled]="propertyIdFromModal !== null || !isRoomTypeChecked(shared)"
               [(ngModel)]="shared.amount"
               name="sharedAmount"
               />
@@ -155,6 +145,7 @@
         <div class="col-md-12 form-group fc">
          <label class="checkbox-inline" *ngFor="let transportation of config.transportations">
          <input type="checkbox" [checked]="getSelected(transportation.value, selectedTransportation)"
+                [disabled]="propertyIdFromModal !== null"
                 (click)="onCheckBoxClick(transportation.value, selectedTransportation, 'transportation', null)">
                   {{transportation.label}}
        </label>
@@ -162,7 +153,7 @@
       <div class="form-group col-md-12">
           <div class="input-group">
             <label for="pets">Other</label>
-            <rl-tag-input id="otherTransports" [(ngModel)]="otherTransports" name="otherTransports"
+            <rl-tag-input id="otherTransports" [(ngModel)]="otherTransports" name="otherTransports" [disableAll]="propertyIdFromModal !== null"
                             placeholder="+ Transport">
             </rl-tag-input>
           </div>
@@ -171,7 +162,7 @@
       <h4 class="col-md-12">Facilities</h4>
       <div class="col-md-12 form-group fc">
         <label class = "checkbox-inline" *ngFor ="let facilities of config.facilities"> 
-          <input type="checkbox" [checked] = "getSelected(facilities.value, selectedFacilities)"
+          <input type="checkbox" [checked] = "getSelected(facilities.value, selectedFacilities)" [disabled]="propertyIdFromModal !== null"
             (click)="onCheckBoxClick(facilities.value, selectedFacilities, 'facilities', null)">
             {{facilities.label}}
         </label>
@@ -182,7 +173,7 @@
               <span class="input-group-addon">
                 Meals
               </span>
-                <input type="number" class="form-control" aria-label="..." placeholder="# of Meals"
+                <input type="number" class="form-control" aria-label="..." placeholder="# of Meals" [disabled]="propertyIdFromModal !== null"
                 [(ngModel)]= "property.numberOfMeals" name="propertyMeals"/>
             </div>
           </div>
@@ -194,7 +185,7 @@
         <div class="input-group">
 
           <label for="pets">Pets</label>
-          <rl-tag-input id="pets" [(ngModel)]="pets" name="pets"
+          <rl-tag-input id="pets" [(ngModel)]="pets" name="pets" [disableAll]="propertyIdFromModal !== null"
                   placeholder="+ Pet">
           </rl-tag-input>
         </div>
@@ -204,7 +195,8 @@
       <div class="col-md-12 form-group">
         <div class="input-group">
           <label for="pets">Meals Served</label>
-          <rl-tag-input id="otherFoodTypes" [(ngModel)]="otherFoodTypes" name="otherFoodTypes"
+          <rl-tag-input id="otherFoodTypes" [(ngModel)]="otherFoodTypes" name="otherFoodTypes" [disableAll]="propertyIdFromModal !== null"
+
                         placeholder="+ Meal">
           </rl-tag-input>
 
@@ -214,7 +206,7 @@
       <h4 class="form-group col-md-12">Allowences</h4>
       <div class="col-md-12 form-group fc">
         <label *ngFor="let allowence of config.allowences" class="form-group col-lg-3 checkbox">
-          <input type="checkbox" name="allowence"
+          <input type="checkbox" name="allowence" [disabled]="propertyIdFromModal !== null"
            [checked]="getSelected(allowence.value, selectedAllowences)"
             (click)="onCheckBoxClick(allowence.value, selectedAllowences, 'allowence')"
                  /> {{allowence.label}}
@@ -246,7 +238,7 @@
       </div>
       -->
 
-      <div class="col-lg-12">
+      <div class="col-lg-12" *ngIf="propertyIdFromModal === null">
         <hr>
         <app-registerbuttons [validForm]="propertyForm.form.valid"  
         (save)="onSave(true,propertyForm)" (saveAndNew)="onSaveAndNew(propertyForm)"></app-registerbuttons>
