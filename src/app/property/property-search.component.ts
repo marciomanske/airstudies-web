@@ -42,7 +42,7 @@ export class PropertySearchComponent extends BaseSerchComponent {
                 if (item.types.indexOf("locality") >= 0) {
                     this.propertySearch.city = item.long_name;
                 } else if (item.types.indexOf("administrative_area_level_1") >= 0) {
-                    this.propertySearch.state = item.long_name;
+                    this.propertySearch.state = item.short_name;
                 } else if (item.types.indexOf("country") >= 0) {
                     this.propertySearch.country = item.long_name;
                 }
