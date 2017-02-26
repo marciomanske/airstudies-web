@@ -3,6 +3,7 @@ import {BaseSerchComponent} from "../basecomponent/base-search-component";
 import {ConfigService} from "../config/config.service";
 import {ContractSearch} from "../dto/ContractSearch";
 import {ContractService} from "../services/contract/contract.service";
+import {Router} from "@angular/router";
 
 @Component({
     styleUrls: ['../customcss/formstyle.css'],
@@ -34,7 +35,7 @@ export class PropertyAvailabilityComponent extends BaseSerchComponent implements
 
     }
 
-    constructor(public config: ConfigService, private contractService: ContractService) {
+    constructor(public config: ConfigService, private contractService: ContractService, private router: Router) {
         super();
     }
 
@@ -181,6 +182,11 @@ export class PropertyAvailabilityComponent extends BaseSerchComponent implements
                     this.searchErrorMessage = "Error executing search";
                 }
             });
+    }
+
+
+    onNewReservation(id: number){
+        this.router.navigate(['/admin/contractreservation/-1']);
     }
 
 }

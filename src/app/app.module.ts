@@ -42,6 +42,8 @@ import {TagInputComponent} from "./commons/tags-input/tag-input/tag-input.compon
 import {TagInputItemComponent} from "./commons/tags-input/tag-input-item/tag-input-item.component";
 import {TagInputAutocompleteComponent} from "./commons/tags-input/tag-input-autocomplete/tag-input-autocomplete.component";
 import { PropertyAvailabilityComponent } from './availability/property-availability.component';
+import {ContractReservationComponent} from './contract/contract-reservation.component';
+
 
 
 @NgModule({
@@ -58,7 +60,8 @@ import { PropertyAvailabilityComponent } from './availability/property-availabil
     ContractSearchComponent,
     ContractRegisterComponent,
     LoginAdminComponent, TagInputComponent, TagInputItemComponent, TagInputAutocompleteComponent,
-    PropertyAvailabilityComponent
+    PropertyAvailabilityComponent,
+    ContractReservationComponent,
   ],
   imports: [
     BrowserModule,

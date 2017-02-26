@@ -98,8 +98,7 @@
                   {{suite.label}}
               </span>
               <input type="number" class="form-control" aria-label="..." placeholder="# of Suites"
-              [required] = "isRoomTypeChecked(suite) == 1" [disabled]="propertyIdFromModal !== null"
-              [disabled]="!isRoomTypeChecked(suite)"
+              [required] = "isRoomTypeChecked(suite) == 1" [disabled]="propertyIdFromModal !== null || !isRoomTypeChecked(suite)"
               [(ngModel)]="suite.amount"
               name="suiteAmount"/>
             </div>

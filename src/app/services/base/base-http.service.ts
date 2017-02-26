@@ -57,7 +57,7 @@ export class BaseHttpService {
     return this.executeGet(getUrl);
   }
 
-  new(entity: any) : Promise<any> {
+  new (entity: any) : Promise<any> {
     let postUrl = this.config.url[this.entityName].new;
     return this.executeOther(postUrl, "post", entity);
   }
