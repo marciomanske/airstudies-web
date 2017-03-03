@@ -195,7 +195,6 @@
         <div class="input-group">
           <label for="pets">Meals Served</label>
           <rl-tag-input id="otherFoodTypes" [(ngModel)]="otherFoodTypes" name="otherFoodTypes" [disableAll]="propertyIdFromModal !== null"
-
                         placeholder="+ Meal">
           </rl-tag-input>
 
@@ -212,30 +211,7 @@
         </label>
       </div>
       
-      <!--
-      <div class="form-group col-lg-3 checkbox">
-        <label>
-          <input type="checkbox" name="activeBeverages"
-                 [checked]="property.active === 1"
-                 (change)="$event.target.checked?property.active = 1:property.active = 0"
-                 />  Alcoholic beverages
-        </label>
-      </div>
 
-      <div class="form-group col-lg-3 checkbox">
-        <label>
-          <input type="checkbox" name="activeCouples"
-                 [checked]="property.active === 1"
-                 (change)="$event.target.checked?property.active = 1:property.active = 0"
-                 /> Couples 
-        </label>
-      </div>
-   
-      <div class="form-group col-md-12">
-        <label for="observation">Observation</label>
-        <textarea class="form-control" rows="6" id="observation" [(ngModel)]="property.observation" name="observation"></textarea>
-      </div>
-      -->
 
       <div class="col-lg-12" *ngIf="propertyIdFromModal === null">
         <hr>

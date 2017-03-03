@@ -14,7 +14,8 @@
     (paste)="onInputPaste($event)"
     (keydown)="onKeydown($event)"
     (blur)="onInputBlurred($event)"
-    (focus)="onInputFocused()">
+    (focus)="onInputFocused()"
+  >
 
   <div *ngIf="showAutocomplete()" class="rl-tag-input-autocomplete-container">
     <rl-tag-input-autocomplete

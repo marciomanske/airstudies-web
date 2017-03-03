@@ -38,10 +38,12 @@ export class TagInputComponent implements ControlValueAccessor, OnDestroy, OnIni
   @Input() autocompleteSelectFirstItem: boolean = true;
   @Input() pasteSplitPattern: string = ',';
   @Input() placeholder: string = 'Add a tag';
-  @Input() disableAll: boolean = false;
+  //@Input() disableAll: boolean = false;
   @Output('addTag') addTag: EventEmitter<string> = new EventEmitter<string>();
   @Output('removeTag') removeTag: EventEmitter<string> = new EventEmitter<string>();
 
+
+  private _disableAll: boolean = false;
   public tagInputForm: FormGroup;
   public autocompleteResults: string[] = [];
   public tagsList: string[] = [];
@@ -76,11 +78,33 @@ export class TagInputComponent implements ControlValueAccessor, OnDestroy, OnIni
     })
     .subscribe();
 
+
+  }
+
+  @Input("disableAll")
+  set disableAll(value: boolean) {
+
+    this._disableAll = value;
+    if (this && this.tagInputForm) {
+      let ctrl = this.tagInputForm.get("tagInputField");
+      ctrl.enable();
+
+      if (value) {
+        ctrl.disable();
+      }
+    }
+
+    /*
     let ctrl = this.tagInputForm.get("tagInputField");
     ctrl.enable();
-    if (this.disableAll) {
+
+    if (!value) {
       ctrl.disable();
-    }
+    } */
+  }
+
+  get disableAll(): boolean {
+    return this._disableAll;
   }
 
   onKeydown(event: KeyboardEvent): void {
@@ -188,15 +212,17 @@ export class TagInputComponent implements ControlValueAccessor, OnDestroy, OnIni
   }
 
   private _removeTag(tagIndexToRemove: number): void {
-    let removedTag = this.tagsList[tagIndexToRemove];
-    this.tagsList.splice(tagIndexToRemove, 1);
-    this._resetSelected();
-    this.onChange(this.tagsList);
-    this._emitTagRemoved(removedTag);
+    if (!this._disableAll) {
+      let removedTag = this.tagsList[tagIndexToRemove];
+      this.tagsList.splice(tagIndexToRemove, 1);
+      this._resetSelected();
+      this.onChange(this.tagsList);
+      this._emitTagRemoved(removedTag);
+    }
   }
 
   private _handleBackspace(): void {
-    if (!this.inputValue.length && this.tagsList.length) {
+    if (!this._disableAll && !this.inputValue.length && this.tagsList.length) {
       if (!isBlank(this.selectedTag)) {
         this._removeTag(this.selectedTag);
       } else {
