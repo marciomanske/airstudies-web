@@ -43,6 +43,8 @@ import {TagInputItemComponent} from "./commons/tags-input/tag-input-item/tag-inp
 import {TagInputAutocompleteComponent} from "./commons/tags-input/tag-input-autocomplete/tag-input-autocomplete.component";
 import { PropertyAvailabilityComponent } from './availability/property-availability.component';
 import {ContractReservationComponent} from './contract/contract-reservation.component';
+import { RegisterButtonsModalComponent } from './commons/register-buttons-modal.component';
+
 
 
 
@@ -62,6 +64,7 @@ import {ContractReservationComponent} from './contract/contract-reservation.comp
     LoginAdminComponent, TagInputComponent, TagInputItemComponent, TagInputAutocompleteComponent,
     PropertyAvailabilityComponent,
     ContractReservationComponent,
+    RegisterButtonsModalComponent
   ],
   imports: [
     BrowserModule,

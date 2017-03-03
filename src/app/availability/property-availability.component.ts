@@ -3,7 +3,6 @@ import {BaseSerchComponent} from "../basecomponent/base-search-component";
 import {ConfigService} from "../config/config.service";
 import {ContractSearch} from "../dto/ContractSearch";
 import {ContractService} from "../services/contract/contract.service";
-import {Router} from "@angular/router";
 
 @Component({
     styleUrls: ['../customcss/formstyle.css'],
@@ -39,7 +38,7 @@ export class PropertyAvailabilityComponent extends BaseSerchComponent implements
 
     }
 
-    constructor(public config: ConfigService, private contractService: ContractService, private router: Router) {
+    constructor(public config: ConfigService, private contractService: ContractService) {
         super();
     }
 

@@ -1,117 +1,69 @@
-<h3 *ngIf="reservationIdFromModal === null" class="text-center">Reservation</h3>
-<hr *ngIf="reservationIdFromModal === null">
-<div class="alert alert-danger" role="alert" *ngIf="reservationIdFromModal === null && registerErrorMessage !== null">
-  {{registerErrorMessage}}
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span
+                    class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+            <h4 class="modal-title custom_align" id="Heading">Reservation</h4>
+        </div>
+
+
+        <div class="modal-body">
+
+            <form role="form" #reservationForm="ngForm">
+
+                <div class="row">
+
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="fullName">Student</label>
+                            <input type="text" class="form-control" id="fullName"
+                                   placeholder="Student Name" required
+                                   name="fullName" [(ngModel)]="reservation.student" #fullName="ngModel"/>
+                            <div [hidden]="fullName.valid || fullName.pristine"
+                                 class="alert alert-danger">
+                                Student name is required
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="Checkin" class="control-label">Checkin</label>
+                            <input type="date" class="form-control" id="Checkin"
+                                   required name="Checkin" [(ngModel)]="reservation.checkin" #Checkin="ngModel"/>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="Checkout" class="control-label">Checkout</label>
+                            <input type="date" class="form-control" id="Checkout"
+                                   required name="Checkout" [(ngModel)]="reservation.checkout" #Checkin="ngModel"/>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="observation">Observation</label>
+                            <textarea class="form-control" rows="6" id="observation"
+                                      [(ngModel)]="reservation.observation" name="observation"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+
+
+        </div>
+
+        <!-- Modal Footer -->
+        <div class="modal-footer">
+            <app-register-buttons-modal [validForm]="reservationForm.form.valid"
+                                        (save)="onSave(true, reservationForm)"></app-register-buttons-modal>
+        </div>
+    </div>
+    <!-- /.modal-content -->
 </div>
 
-<section class="dados col-md-12">
-    <article class="row">
-        <form #reservationForm="ngForm">
 
-            <div class="form-group col-md-12">
-                <label for="fullName">Student</label>
-                <input type="text" class="form-control" id="fullName" [disabled]="reservationIdFromModal" 
-                       placeholder="student name" required
-                       name="fullName" [(ngModel)]="reservation.student" #fullName="ngModel"/>
-                <div [hidden]="fullName.valid || fullName.pristine"
-                     class="alert alert-danger">
-                    Student name is required
-                </div>
-            </div>
-
-            
-
-            <div class="form-group col-md-6">
-                <label for="Checkin">Checkin</label>
-                <input type="date" class="form-control" id="Checkin" [disabled]="reservationIdFromModal"    
-                       required name="Checkin" [(ngModel)]="reservation.checkin"  #Checkin="ngModel"/>
-            </div>
-
-            <div class="form-group col-md-5">
-                <label for="Checkout">Checkout</label>
-                <input type="date" class="form-control" id="Checkout" [disabled]="reservationIdFromModal"
-                       [(ngModel)]="reservation.checkout" name="Checkout" #Checkout="ngModel"/>
-            </div>
-            <br>
-
-            <div class="form-group col-md-1">
-                <label></label>
-                <label>
-                    <input type="checkbox" name="active" [disabled]="reservationIdFromModal !== null"
-                           [checked]="reservation.active === 1"
-                            (change)="$event.target.checked?reservation.active = 1:reservation.active = 0"
-                     /> Active
-                </label>
-            </div>
-
-                 <!--================ ROOM TYPE ===============-->
-
-      <div class="col-lg-12 form-group fc">
-          <label class="col-md-12">Room Type</label>
-          
-          <div class="col-md-4">
-            <div class="input-group">
-              <span class="input-group-addon">
-                  <input type="checkbox" readonly="reservationIdFromModal !== null"
-                  [checked]="isRoomTypeChecked(suite)"
-                  (click)="onRoomTypeClick(suite)"> 
-                  {{suite.label}} 
-              </span>
-              <input type="text" class="form-control" aria-label="..." placeholder="# of Suites"
-              [required] = "isRoomTypeChecked(suite) == 1" [disabled]="reservationIdFromModal !== null || !isRoomTypeChecked(suite)"
-              [(ngModel)]="suite.amount"
-              name="suiteAmount"/>
-            </div>
-          </div>
-
-          <div class="col-md-4">
-            <div class="input-group">
-              <span class="input-group-addon">
-                  <input type="checkbox" readonly="reservationIdFromModal !== null"
-                  [checked]="isRoomTypeChecked(single)"
-                  (click)="onRoomTypeClick(single)">
-                  {{single.label}} <br>
-              </span>
-              <input type="text" class="form-control" aria-label="..." placeholder="# of Singles"
-              [required] = "isRoomTypeChecked(single) == 1"
-              [disabled]="reservationIdFromModal !== null || !isRoomTypeChecked(single)"
-              [(ngModel)]="single.amount"
-              name="singleAmount"
-              />
-            </div>      
-          </div>
-
-          <div class="col-md-4">
-            <div class="input-group">
-              <span class="input-group-addon">
-                  <input type="checkbox"  [disabled]="reservationIdFromModal !== null"
-                  [checked]="isRoomTypeChecked(shared)"
-                  (click)="onRoomTypeClick(shared)">
-                  {{shared.label}} <br>
-              </span>
-              <input type="text" class="form-control" aria-label="..." placeholder="# of Shared"
-              [required] = "isRoomTypeChecked(shared) == 1"
-              [disabled]="reservationIdFromModal !== null || !isRoomTypeChecked(shared)"
-              [(ngModel)]="shared.amount"
-              name="sharedAmount"
-              />
-            </div>      
-          </div>
-      </div>            
-
-      <div class="form-group col-md-12">
-                <label for="observation">Observation</label>
-                <textarea class="form-control" rows="6" id="observation" [disabled]="reservationIdFromModal"
-                          [(ngModel)]="reservation.observation" name="observation"></textarea>
-           </div>
-     
-
-           <div class="col-lg-12">
-                <hr>
-                <app-registerbuttons [validForm]="reservationForm.form.valid"
-                (save)="onSave(true, reservationForm)" (saveAndNew)="onSaveAndNew(reservationForm)"></app-registerbuttons>
-            </div>
-
-        </form>
-    </article>
-</section>
