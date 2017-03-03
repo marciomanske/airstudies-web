@@ -21,6 +21,7 @@ import {PropertyRegisterComponent} from "./property/property-register.component"
 import {ContractSearchComponent} from "./contract/contract-search.component";
 import {ContractRegisterComponent} from "./contract/contract-register.component";
 import {PropertyAvailabilityComponent} from "./availability/property-availability.component";
+import {ContractReservationComponent} from "./contract/contract-reservation.component";
 
 const routes: Routes = [
     {path:"", redirectTo: "/main", pathMatch: "full"},
@@ -39,7 +40,8 @@ const routes: Routes = [
             {path: "propertyregister/:id", component: PropertyRegisterComponent},
             {path: "contractsearch", component: ContractSearchComponent},
             {path: "contractregister/:id", component: ContractRegisterComponent},
-            {path: "propertyavailability", component: PropertyAvailabilityComponent}
+            {path: "propertyavailability", component: PropertyAvailabilityComponent},
+            {path: "contractreservation/:id", component: ContractReservationComponent},
         ]
 
     }
