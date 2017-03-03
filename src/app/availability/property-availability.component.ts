@@ -42,10 +42,44 @@ export class PropertyAvailabilityComponent extends BaseSerchComponent implements
         super();
     }
 
+
+    getAge(dateString) {
+        let age = 0;
+        if (dateString && dateString !== null) {
+            let today = new Date();
+            let birthDate = new Date(dateString);
+            age = today.getFullYear() - birthDate.getFullYear();
+            var m = today.getMonth() - birthDate.getMonth();
+            if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+                age--;
+            }
+
+        }
+        return age;
+    }
+
     onRowClick(data: any) {
         this.selectedContract = data;
         this.availability = [];
 
+
+        for (let reservation of this.selectedContract.reservations) {
+
+
+
+            this.availability.push(
+                {id: reservation.id,
+                student: reservation.student.name,
+                school: this.selectedContract.school.name,
+                    country: reservation.student.localization.country,
+                    checkin: reservation.checkin,
+                    checkout: reservation.checkout,
+                    age: this.getAge(reservation.student.birthDate)
+                }
+            );
+        }
+
+        /*
         this.availability.push(
             {   id: 1,
                 student: "Márcio Manske",
@@ -55,7 +89,7 @@ export class PropertyAvailabilityComponent extends BaseSerchComponent implements
                 checkin: "2017-05-01",
                 checkout: "2017-08-04"
             }
-        );
+        ); */
     }
 
     onViewClick(data: any) {
