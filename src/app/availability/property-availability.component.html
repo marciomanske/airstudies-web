@@ -71,20 +71,11 @@
               <span *ngIf="result.active === 1">Active</span>
               <span *ngIf="result.active === 0">Inactive</span>
             </td>
-            <!--
-            <td class="text-center"><p data-placement="top" data-toggle="tooltip" title="Add Reservation"><button
-                    (click)="propertyRegister.loadData(result.property.id)"
-                    class="btn btn-primary btn-xs" data-title="Add Reservation" data-toggle="modal" data-target="#addReservation">
-              <span class="glyphicon glyphicon-plus-sign"></span></button></p></td>
-            <td class="text-center"><p data-placement="top" data-toggle="tooltip" title="Property Details"><button
-                    (click)="propertyRegister.loadData(result.property.id)"
-                    class="btn btn-primary btn-xs" data-title="Property Details" data-toggle="modal" data-target="#viewDetails">
-              <span class="glyphicon glyphicon-eye-open"></span></button></p></td> -->
             <td class="text-center">
               <button
-                    (click)="onNewReservation(result.property.id)" title="Add Reservation"
+                    (click)="onNewReservation(result.id)" title="New Reservation"
                     class="btn btn-primary btn-xs" data-toggle="modal" data-target="#addReservation">
-              <span class="glyphicon glyphicon-plus-sign"></span></button>
+              <span class="glyphicon glyphicon-book"></span></button>
             <button
                     (click)="propertyRegister.loadData(result.property.id)"
                     class="btn btn-primary btn-xs" title="Property Details" data-toggle="modal" data-target="#viewDetails">
@@ -103,8 +94,8 @@
   <div class="row" *ngIf="selectedContract !== null">
 
     <h4>Property</h4>
-    <h5>Owner: {{selectedContract.ownerName}}</h5>
-    <h5>Address: {{composeAddress(selectedContract)}}</h5>
+    <h5>Owner: {{selectedContract.property.ownerName}}</h5>
+    <h5>Address: {{composeAddress(selectedContract.property)}}</h5>
 
     <table id="reservationsTable" class="table table-bordred table-striped">
 
@@ -126,6 +117,11 @@
         <td>{{item.country}}</td>
         <td>{{item.checkin}}</td>
         <td>{{item.checkout}}</td>
+        <td>
+        <td class="text-center">
+          <button (click)="onEditReservation(item.id)" class="btn btn-primary btn-xs" title="Edit Reservation" ><span class="glyphicon glyphicon-pencil"></span></button>
+          <button (click)="onCancelReservation(item.id)" class="btn btn-primary btn-xs" title="Cancel Reservation" ><span class="glyphicon glyphicon-remove"></span></button>
+        </td>
       </tr>
       </tbody>
 

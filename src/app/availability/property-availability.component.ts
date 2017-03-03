@@ -22,6 +22,10 @@ export class PropertyAvailabilityComponent extends BaseSerchComponent implements
 
     composeAddress(data: any): string {
 
+        if (data === null) {
+            return null;
+        }
+
         let result: string = null;
 
         if (data.city !== null) {
@@ -44,7 +48,7 @@ export class PropertyAvailabilityComponent extends BaseSerchComponent implements
         this.availability = [];
 
         this.availability.push(
-            {
+            {   id: 1,
                 student: "Márcio Manske",
                 age: 38,
                 school: "ILAC",
@@ -184,9 +188,16 @@ export class PropertyAvailabilityComponent extends BaseSerchComponent implements
             });
     }
 
+    onNewReservation(contractId: number) {
 
-    onNewReservation(id: number){
-        this.router.navigate(['/admin/contractreservation/-1']);
+    }
+
+    onEditReservation(id: number) {
+
+    }
+
+    onCancelReservation(id: number) {
+
     }
 
 }
